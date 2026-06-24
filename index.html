@@ -122,8 +122,10 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-
 .ed-img-ov{display:none}
 .ed-num{position:absolute;bottom:16px;right:20px;font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:700;color:rgba(212,175,55,.08);line-height:1;pointer-events:none;user-select:none}
 .editorial.rev .ed-num{right:auto;left:20px}
-.ed-content{display:flex;flex-direction:column;justify-content:center;padding:52px 72px;background:var(--bg);position:relative}
+.ed-content{display:flex;flex-direction:column;justify-content:center;padding:52px 80px 52px 64px;background:var(--bg);position:relative}
+/* line luôn ở phía tiếp giáp ảnh: normal=trái, rev=phải */
 .ed-content::before{content:'';position:absolute;top:12%;left:0;width:1px;height:76%;background:linear-gradient(to bottom,transparent,var(--border-s),transparent)}
+.editorial.rev .ed-content{padding:52px 64px 52px 80px}
 .editorial.rev .ed-content::before{left:auto;right:0}
 .ed-cat{font-family:'Poppins',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold)}
 .ed-title{font-size:clamp(1.8rem,2.8vw,3rem);font-weight:600;color:var(--cream);margin:12px 0 10px;line-height:1.06}
@@ -145,6 +147,29 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-
 [data-d="2"]{transition-delay:.26s}
 [data-d="3"]{transition-delay:.42s}
 [data-d="4"]{transition-delay:.58s}
+
+/* ── TRENDING SLIDESHOW ── */
+.swiper-trending{padding:14px 4px 56px !important;position:relative}
+.swiper-trending .swiper-wrapper{align-items:stretch}
+.swiper-trending .swiper-slide{height:auto}
+.tr-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color .4s,box-shadow .4s;height:100%;display:flex;flex-direction:column}
+.tr-card:hover{border-color:var(--border-s);box-shadow:0 20px 56px rgba(0,0,0,.5)}
+.tr-img{position:relative;overflow:hidden;aspect-ratio:4/3;flex-shrink:0}
+.tr-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease-out)}
+.tr-card:hover .tr-img img{transform:scale(1.07)}
+.tr-info{padding:22px 24px;display:flex;flex-direction:column;flex:1}
+.tr-info .p-cat{margin-bottom:8px}
+.tr-info .p-name{margin-bottom:10px}
+.tr-info .p-desc{flex:1;margin-bottom:20px}
+.tr-info .p-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;padding-top:16px;border-top:1px solid var(--border);margin-top:auto}
+.tr-info .p-price{font-size:1.2rem;white-space:nowrap}
+.tr-info .btn-gold{padding:8px 14px;font-size:.62rem;letter-spacing:1px;white-space:nowrap;flex-shrink:0}
+.tr-prev,.tr-next{color:var(--gold)!important;width:40px!important;height:40px!important;background:rgba(8,8,8,.8)!important;border:1px solid var(--border-s)!important;border-radius:50%!important;backdrop-filter:blur(8px)}
+.tr-prev::after,.tr-next::after{font-size:.75rem!important;font-weight:700!important}
+.tr-prev:hover,.tr-next:hover{background:rgba(212,175,55,.12)!important;border-color:var(--gold)!important}
+.tr-pagination{bottom:0!important}
+.tr-pagination .swiper-pagination-bullet{background:var(--border)!important;opacity:1!important}
+.tr-pagination .swiper-pagination-bullet-active{background:var(--gold)!important;width:28px!important;border-radius:4px!important}
 
 /* ── PRODUCTS ── */
 #products{padding:104px 0;background:var(--bg2);position:relative}
@@ -242,7 +267,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:72px 0 3
   .cnt-row{grid-template-columns:repeat(2,1fr)}
   .editorial,.editorial.rev{grid-template-columns:42vw 1fr}
   .editorial.rev{grid-template-columns:1fr 42vw}
-  .ed-content{padding:36px 48px}
+  .ed-content{padding:36px 52px 36px 40px}
+  .editorial.rev .ed-content{padding:36px 40px 36px 52px}
 }
 @media(max-width:768px){
   .nav-links,.nav-cta-d{display:none}
@@ -601,6 +627,98 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:72px 0 3
 
   </div>
 </div>
+
+<!-- SLIDESHOW: SẢN PHẨM NHIỀU NGƯỜI QUAN TÂM -->
+<section id="trending" style="padding:80px 0;background:var(--bg);position:relative">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-s),transparent)"></div>
+  <div class="container">
+    <div class="sec-hd c" data-r>
+      <span class="lbl">Được Yêu Thích</span>
+      <h2 class="sec-title">Sản Phẩm <span class="gold">Nhiều Người Quan Tâm</span></h2>
+      <p class="sec-desc">Những thiết kế được khách hàng lựa chọn nhiều nhất — đẹp, ý nghĩa và xứng đáng sở hữu.</p>
+    </div>
+    <div class="swiper swiper-trending" data-r>
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <div class="tr-card">
+            <div class="tr-img"><img src="images/sp-1.jpg" alt="Rừng Trăng Vàng"><div class="p-badge">Bestseller</div></div>
+            <div class="tr-info">
+              <div class="p-cat">Thiên Nhiên</div>
+              <h3 class="p-name">Rừng Trăng Vàng</h3>
+              <p class="p-desc">Cảnh rừng núi huyền bí dưới ánh trăng vàng, không gian thơ mộng và yên bình.</p>
+              <div class="p-foot"><div class="p-price">490.000đ<small> / hộp</small></div><a href="#contact" class="btn btn-gold">Đặt Ngay</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="tr-card">
+            <div class="tr-img"><img src="images/sp-2.jpg" alt="Hoa Anh Đào Xanh"><div class="p-badge">Mới</div></div>
+            <div class="tr-info">
+              <div class="p-cat">Lãng Mạn</div>
+              <h3 class="p-name">Hoa Anh Đào Xanh</h3>
+              <p class="p-desc">Vẻ đẹp mùa xuân trong tông xanh ngọc huyền diệu, nhẹ nhàng và thư thái.</p>
+              <div class="p-foot"><div class="p-price">520.000đ<small> / hộp</small></div><a href="#contact" class="btn btn-gold">Đặt Ngay</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="tr-card">
+            <div class="tr-img"><img src="images/sp-3.jpg" alt="Thành Phố Vàng"></div>
+            <div class="tr-info">
+              <div class="p-cat">Đô Thị</div>
+              <h3 class="p-name">Thành Phố Vàng</h3>
+              <p class="p-desc">Đường chân trời thành phố đêm lung linh trong sắc vàng ấm áp.</p>
+              <div class="p-foot"><div class="p-price">580.000đ<small> / hộp</small></div><a href="#contact" class="btn btn-gold">Đặt Ngay</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="tr-card">
+            <div class="tr-img"><img src="images/sp-4.jpg" alt="Hải Đăng Bạc"><div class="p-badge">Giới Hạn</div></div>
+            <div class="tr-info">
+              <div class="p-cat">Biển Cả</div>
+              <h3 class="p-name">Hải Đăng Bạc</h3>
+              <p class="p-desc">Ngọn hải đăng cô độc giữa biển đêm — biểu tượng của hy vọng và khám phá.</p>
+              <div class="p-foot"><div class="p-price">650.000đ<small> / hộp</small></div><a href="#contact" class="btn btn-gold">Đặt Ngay</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="tr-card">
+            <div class="tr-img"><img src="images/sp-5.jpg" alt="Tháp Đèn Đỏ"></div>
+            <div class="tr-info">
+              <div class="p-cat">Á Đông</div>
+              <h3 class="p-name">Tháp Đèn Đỏ</h3>
+              <p class="p-desc">Vẻ đẹp kiến trúc Á Đông huyền bí dưới ánh đèn lồng đỏ rực.</p>
+              <div class="p-foot"><div class="p-price">560.000đ<small> / hộp</small></div><a href="#contact" class="btn btn-gold">Đặt Ngay</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="tr-card">
+            <div class="tr-img"><img src="images/sp-6.jpg" alt="Cực Quang Bắc"><div class="p-badge">Cao Cấp</div></div>
+            <div class="tr-info">
+              <div class="p-cat">Mùa Đông</div>
+              <h3 class="p-name">Cực Quang Bắc</h3>
+              <p class="p-desc">Cảnh đêm cực quang huyền ảo trên tuyết trắng — lạnh lẽo và ấm áp.</p>
+              <div class="p-foot"><div class="p-price">720.000đ<small> / hộp</small></div><a href="#contact" class="btn btn-gold">Đặt Ngay</a></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-button-prev tr-prev"></div>
+      <div class="swiper-button-next tr-next"></div>
+      <div class="swiper-pagination tr-pagination"></div>
+    </div>
+  </div>
+</section>
 
 <!-- PRODUCTS -->
 <section id="products">
@@ -980,6 +1098,15 @@ const cntEl = document.querySelector('.cnt-row');
 if (cntEl) cntObs.observe(cntEl);
 
 /* ── SWIPER ── */
+new Swiper('.swiper-trending', {
+  slidesPerView: 1,
+  spaceBetween: 20,
+  loop: true,
+  autoplay: { delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: true },
+  navigation: { prevEl: '.tr-prev', nextEl: '.tr-next' },
+  pagination: { el: '.tr-pagination', clickable: true },
+  breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 }, 1280: { slidesPerView: 4 } }
+});
 new Swiper('.swiper-t', {
   slidesPerView: 1,
   spaceBetween: 24,
