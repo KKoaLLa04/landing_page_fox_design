@@ -7,230 +7,454 @@
 <title>Fox Design | Nghệ Thuật Ánh Sáng Kirigami</title>
 <link rel="icon" href="images/logo.jpg" type="image/jpeg">
 <link rel="shortcut icon" href="images/logo.jpg">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+/* ── RESET ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0A0A0F;--bg2:#0F0F18;--card:#131320;
-  --gold:#FFD700;--gold-d:#B8960C;--gold-l:#FFE855;
-  --silver:#DCDCDC;--green:#328064;
-  --txt:#F0F0F0;--muted:#888899;
-  --border:#1E1E2E;--border-g:rgba(255,215,0,.25);
+  --bg:#080808;--bg2:#0c0c0c;--bg3:#101010;
+  --card:#111;
+  --gold:#d4af37;--gold-l:#e5c84f;--gold-d:#9a7e1e;
+  --cream:#f5f0e8;--beige:#c9b8a3;
+  --txt:#ede8e0;--muted:#66605a;
+  --border:rgba(212,175,55,.1);--border-s:rgba(212,175,55,.28);
+  --ease:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(.25,.46,.45,.94);
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Poppins',sans-serif}
-::-webkit-scrollbar{width:5px}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:3px}
-::selection{background:rgba(255,215,0,.2);color:var(--gold)}
+::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
+::selection{background:rgba(212,175,55,.18);color:var(--gold)}
 
 /* ── UTILS ── */
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
-.lbl{font-size:.72rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
-.sec-title{font-size:clamp(1.9rem,4vw,3rem);font-weight:700;line-height:1.15;margin-bottom:18px}
-.sec-desc{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.8}
-.gold{background:linear-gradient(135deg,#FFD700,#FFE855,#B8960C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+.lbl{display:inline-block;font-family:'Poppins',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:4.5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.gold{background:linear-gradient(135deg,var(--gold-l),var(--gold),var(--gold-d));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.divider{display:flex;align-items:center;gap:18px;margin:22px 0 30px}
+.dvl{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border-s))}
+.dvl.r{background:linear-gradient(90deg,var(--border-s),transparent)}
+.dvg{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);flex-shrink:0;opacity:.65}
 
 /* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:600;border:none;border-radius:50px;cursor:pointer;text-decoration:none;transition:all .3s ease;min-height:52px;position:relative;overflow:hidden}
-.btn-gold{padding:15px 36px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#0A0A0F}
-.btn-gold::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.28);border-radius:50%;transform:translate(-50%,-50%);transition:width .55s,height .55s}
-.btn-gold:hover::before{width:320px;height:320px}
-.btn-gold:hover{box-shadow:0 0 32px rgba(255,215,0,.45),0 8px 24px rgba(255,215,0,.25);transform:translateY(-2px)}
-.btn-out{padding:13px 32px;background:transparent;color:var(--gold);border:1px solid var(--border-g)}
-.btn-out:hover{background:rgba(255,215,0,.07);border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,.18)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:all .4s var(--ease);position:relative;overflow:hidden}
+.btn-gold{padding:16px 40px;background:var(--gold);color:#080808;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.btn-gold::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);opacity:0;transition:opacity .3s}
+.btn-gold:hover{background:var(--gold-l);box-shadow:0 8px 36px rgba(212,175,55,.35);transform:translateY(-2px)}
+.btn-gold:hover::before{opacity:1}
+.btn-out{padding:14px 36px;background:transparent;color:var(--cream);border:1px solid rgba(245,240,232,.18)}
+.btn-out:hover{background:rgba(245,240,232,.04);border-color:var(--border-s);color:var(--gold)}
 
 /* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 0;transition:all .4s ease}
-.nav.scrolled{background:rgba(10,10,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-g);padding:12px 0}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 0;transition:all .5s var(--ease)}
+.nav.scrolled{background:rgba(8,8,8,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:14px 0}
 .nav .container{display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo-img{width:44px;height:44px;object-fit:contain;border-radius:8px;background:#fff;padding:3px;flex-shrink:0}
-.logo-text span:first-child{display:block;font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:700;color:var(--gold);letter-spacing:.5px}
-.logo-text span:last-child{display:block;font-size:.6rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:1px}
-.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
-.nav-links a{font-size:.86rem;font-weight:500;color:var(--silver);text-decoration:none;letter-spacing:.3px;position:relative;transition:color .3s}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
-.nav-links a:hover{color:var(--gold)}
+.logo{display:flex;align-items:center;gap:13px;text-decoration:none}
+.logo-img{width:42px;height:42px;object-fit:contain;border-radius:8px;background:#fff;padding:3px;flex-shrink:0}
+.logo-t{display:block;font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;line-height:1}
+.logo-s{display:block;font-family:'Poppins',sans-serif;font-size:.56rem;color:var(--muted);letter-spacing:3.5px;text-transform:uppercase;margin-top:3px}
+.nav-links{display:flex;align-items:center;gap:38px;list-style:none}
+.nav-links a{font-family:'Poppins',sans-serif;font-size:.74rem;font-weight:500;color:rgba(245,240,232,.55);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s var(--ease)}
+.nav-links a:hover{color:var(--cream)}
 .nav-links a:hover::after{width:100%}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
-.ham span{display:block;width:24px;height:2px;background:var(--silver);border-radius:2px;transition:all .3s}
-.ham.on span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--gold)}
-.ham.on span:nth-child(2){opacity:0}
-.ham.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--gold)}
-.mob{display:none;position:fixed;inset:0;background:rgba(10,10,15,.98);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;transition:opacity .3s}
+.ham{display:none;flex-direction:column;gap:6px;cursor:pointer;padding:8px;background:none;border:none}
+.ham span{display:block;width:25px;height:1.5px;background:var(--cream);border-radius:1px;transition:all .35s}
+.ham.on span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--gold)}
+.ham.on span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.on span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--gold)}
+.mob{display:none;position:fixed;inset:0;background:rgba(8,8,8,.98);backdrop-filter:blur(32px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:38px;opacity:0;transition:opacity .4s}
 .mob.on{display:flex;opacity:1}
-.mob a{font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:600;color:var(--silver);text-decoration:none;transition:color .3s}
+.mob a{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:400;color:rgba(245,240,232,.55);text-decoration:none;letter-spacing:4px;text-transform:uppercase;transition:color .3s}
 .mob a:hover{color:var(--gold)}
 
 /* ── HERO ── */
 #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('images/background-header.jpg') center center/cover no-repeat}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,15,.62) 0%,rgba(10,10,15,.25) 45%,rgba(10,10,15,.85) 100%)}
-.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,215,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
-.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:float linear infinite}
-.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,215,0,.14),transparent);top:-120px;right:-100px;animation-duration:22s}
-.orb2{width:420px;height:420px;background:radial-gradient(circle,rgba(50,128,100,.11),transparent);bottom:-60px;left:-80px;animation-duration:28s;animation-direction:reverse}
-.orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.07),transparent);top:35%;left:8%;animation-duration:19s}
-@keyframes float{0%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-28px) scale(1.04)}66%{transform:translate(-18px,18px) scale(.97)}100%{transform:translate(0,0) scale(1)}}
-.hero-inner{position:relative;z-index:2;text-align:center;padding:130px 24px 80px;max-width:860px}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 20px;background:rgba(255,215,0,.07);border:1px solid var(--border-g);border-radius:50px;font-size:.72rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;animation:fiu .8s ease .2s both}
-.dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
-.hero-h{font-size:clamp(3rem,9vw,7rem);font-weight:800;line-height:1.02;letter-spacing:-2px;margin-bottom:10px;animation:fiu .9s ease .4s both}
-.hero-sub{font-size:clamp(1rem,2.5vw,1.5rem);font-weight:300;color:var(--silver);letter-spacing:8px;text-transform:uppercase;margin-bottom:24px;animation:fiu .9s ease .5s both}
-.hero-p{font-size:1.05rem;color:var(--muted);max-width:520px;margin:0 auto 44px;line-height:1.85;animation:fiu .9s ease .6s both}
-.hero-cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;animation:fiu .9s ease .7s both}
-.scroll-i{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fid 1s ease 1.5s both}
-.scroll-i span{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
-.mouse{width:24px;height:38px;border:1.5px solid rgba(255,215,0,.3);border-radius:12px;display:flex;justify-content:center;padding-top:6px}
-.wheel{width:3px;height:8px;background:var(--gold);border-radius:2px;animation:wheel 2s ease infinite}
-@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(15px);opacity:0}}
-@keyframes fiu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fid{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.h-bg{position:absolute;inset:0;background:url('images/background-header.jpg') center/cover no-repeat;transform-origin:center;animation:hzoom 22s ease-in-out infinite alternate}
+@keyframes hzoom{from{transform:scale(1.04)}to{transform:scale(1.1) translateY(-1.5%)}}
+.h-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,.72) 0%,rgba(8,8,8,.18) 60%,rgba(8,8,8,.55) 100%),linear-gradient(to bottom,rgba(8,8,8,.45) 0%,rgba(8,8,8,.08) 38%,rgba(8,8,8,.92) 100%)}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,175,55,.038) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.038) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at center,black 22%,transparent 68%)}
+.h-grain{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+.h-inner{position:relative;z-index:2;text-align:center;padding:150px 32px 110px;max-width:920px}
+.h-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 22px;background:rgba(212,175,55,.06);border:1px solid var(--border-s);font-family:'Poppins',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:38px;animation:hin .9s ease .1s both}
+.h-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:pulse 2.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.45)}}
+.h-title{font-size:clamp(4.2rem,11vw,9.5rem);font-weight:700;line-height:.92;letter-spacing:-1px;margin-bottom:10px;animation:hin .9s ease .25s both}
+.h-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.4vw,1.55rem);font-weight:300;font-style:italic;color:var(--beige);letter-spacing:7px;margin-bottom:32px;animation:hin .9s ease .4s both}
+.h-rule{width:56px;height:1px;background:var(--gold);margin:0 auto 32px;animation:hin .9s ease .5s both}
+.h-p{font-size:.98rem;color:rgba(237,232,224,.55);max-width:460px;margin:0 auto 56px;line-height:2.05;font-weight:300;animation:hin .9s ease .55s both}
+.h-cta{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;animation:hin .9s ease .65s both}
+.scroll-ind{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;animation:hin 1s ease 1.3s both;z-index:2}
+.scroll-ind span{font-family:'Poppins',sans-serif;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.s-mouse{width:22px;height:36px;border:1px solid rgba(212,175,55,.28);border-radius:11px;display:flex;justify-content:center;padding-top:7px}
+.s-wheel{width:2px;height:7px;background:var(--gold);border-radius:1px;animation:swheel 2.2s ease infinite}
+@keyframes swheel{0%{opacity:1;transform:translateY(0)}80%{opacity:0;transform:translateY(13px)}100%{opacity:0}}
+@keyframes hin{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── STATS ── */
-.stats-bar{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.stat{padding:26px 20px;text-align:center;border-right:1px solid var(--border)}
+.stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2)}
+.stats-g{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:32px 20px;text-align:center;border-right:1px solid var(--border);position:relative}
+.stat::before{content:'';position:absolute;top:0;left:50%;width:0;height:2px;background:var(--gold);transform:translateX(-50%);transition:width .6s var(--ease)}
+.stat:hover::before{width:55%}
 .stat:last-child{border-right:none}
-.stat-n{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:5px}
-.stat-l{font-size:.78rem;color:var(--muted);letter-spacing:.5px}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:7px}
+.stat-l{font-family:'Poppins',sans-serif;font-size:.64rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 
-/* ── SECTION ── */
-section{padding:96px 0}
-.sec-hd{margin-bottom:60px}
-.sec-hd.c{text-align:center}
-.sec-hd.c .sec-desc{margin:0 auto}
+/* ── EDITORIAL SECTIONS ── */
+.editorial{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;overflow:hidden}
+.editorial.rev{direction:rtl}
+.editorial.rev > *{direction:ltr}
+.ed-img{position:relative;overflow:hidden;background:var(--bg3)}
+.ed-img-wrap{position:absolute;inset:-12% 0;will-change:transform}
+.ed-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.ed-img-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(8,8,8,.45) 100%)}
+.ed-num{position:absolute;bottom:36px;right:36px;font-family:'Cormorant Garamond',serif;font-size:7.5rem;font-weight:700;color:rgba(212,175,55,.09);line-height:1;pointer-events:none;user-select:none}
+.editorial.rev .ed-num{right:auto;left:36px}
+.ed-content{display:flex;flex-direction:column;justify-content:center;padding:80px 72px;background:var(--bg);position:relative}
+.ed-content::before{content:'';position:absolute;top:12%;left:0;width:1px;height:76%;background:linear-gradient(to bottom,transparent,var(--border-s),transparent)}
+.editorial.rev .ed-content::before{left:auto;right:0}
+.ed-cat{font-family:'Poppins',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold)}
+.ed-title{font-size:clamp(2.6rem,4vw,4.2rem);font-weight:600;color:var(--cream);margin:15px 0;line-height:1.04}
+.ed-title em{font-style:italic;font-weight:300;color:var(--beige)}
+.ed-desc{font-size:.92rem;color:rgba(237,232,224,.5);line-height:1.95;font-weight:300;max-width:420px;margin-bottom:34px}
+.ed-feats{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:44px}
+.ed-feats li{display:flex;align-items:center;gap:14px;font-size:.84rem;color:rgba(237,232,224,.58)}
+.ed-feats li::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0}
+.ed-foot{display:flex;align-items:center;gap:28px}
+.ed-price{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:var(--gold)}
+.ed-price small{font-size:.95rem;color:var(--muted);font-weight:300}
+
+/* ── SCROLL REVEAL ── */
+[data-r]{opacity:0;transform:translateY(42px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+[data-r="L"]{transform:translateX(-52px)}
+[data-r="R"]{transform:translateX(52px)}
+[data-r].on{opacity:1;transform:translate(0,0)}
+[data-d="1"]{transition-delay:.12s}
+[data-d="2"]{transition-delay:.26s}
+[data-d="3"]{transition-delay:.42s}
+[data-d="4"]{transition-delay:.58s}
 
 /* ── PRODUCTS ── */
-#products{background:var(--bg)}
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.prod-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer}
-.prod-card:hover{border-color:var(--border-g);transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(255,215,0,.06)}
-.prod-img{width:100%;aspect-ratio:4/3;position:relative;overflow:hidden}
-.prod-img img{width:100%;height:100%;object-fit:cover;display:block;animation:pfloat 7s ease-in-out infinite;will-change:transform;transform-origin:center center}
-.prod-card:nth-child(2) .prod-img img{animation-delay:-2s}
-.prod-card:nth-child(3) .prod-img img{animation-delay:-3.5s}
-.prod-card:nth-child(4) .prod-img img{animation-delay:-1.2s}
-.prod-card:nth-child(5) .prod-img img{animation-delay:-4.5s}
-.prod-card:nth-child(6) .prod-img img{animation-delay:-6s}
-@keyframes pfloat{
-  0%,100%{transform:scale(1.13) translateY(0px) rotate(0deg)}
-  20%{transform:scale(1.15) translateY(-9px) rotate(.4deg)}
-  50%{transform:scale(1.16) translateY(-15px) rotate(-.4deg)}
-  75%{transform:scale(1.14) translateY(-7px) rotate(.2deg)}
-}
-.prod-badge{position:absolute;top:12px;right:12px;padding:4px 11px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:20px;font-size:.68rem;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;z-index:2}
-.prod-info{padding:22px}
-.prod-cat{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;font-weight:500}
-.prod-name{font-size:1.1rem;font-weight:600;margin-bottom:9px;color:var(--txt)}
-.prod-desc{font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:18px}
-.prod-foot{display:flex;align-items:center;justify-content:space-between}
-.prod-price{font-family:'Poppins',sans-serif;font-size:1.25rem;font-weight:700;color:var(--gold)}
-.prod-price small{font-size:.72rem;font-weight:400;color:var(--muted);margin-left:3px}
-.prod-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,215,0,.08);border:1px solid var(--border-g);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:.85rem}
-.prod-btn:hover{background:var(--gold);color:#0A0A0F;box-shadow:0 0 20px rgba(255,215,0,.4)}
+#products{padding:104px 0;background:var(--bg2);position:relative}
+#products::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-s),transparent)}
+.sec-hd{margin-bottom:68px}
+.sec-hd.c{text-align:center}
+.sec-hd.c .sec-desc{margin:0 auto}
+.sec-title{font-size:clamp(2rem,4vw,3.3rem);font-weight:700;color:var(--cream);line-height:1.1;margin-bottom:18px}
+.sec-desc{font-size:.92rem;color:var(--muted);max-width:510px;line-height:1.95;font-weight:300}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.prod-card{background:var(--card);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .4s,box-shadow .4s;transform-style:preserve-3d;transform-origin:center}
+.prod-card:hover{border-color:var(--border-s);box-shadow:0 28px 72px rgba(0,0,0,.58),0 0 40px rgba(212,175,55,.045)}
+.p-img{position:relative;overflow:hidden;aspect-ratio:4/3}
+.p-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .85s var(--ease-out)}
+.prod-card:hover .p-img img{transform:scale(1.08)}
+.p-badge{position:absolute;top:14px;right:14px;padding:5px 13px;background:rgba(8,8,8,.8);border:1px solid var(--border-s);font-family:'Poppins',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);backdrop-filter:blur(8px)}
+.p-info{padding:24px 26px}
+.p-cat{font-family:'Poppins',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.p-name{font-family:'Cormorant Garamond',serif;font-size:1.48rem;font-weight:600;color:var(--cream);margin-bottom:10px;line-height:1.2}
+.p-desc{font-size:.8rem;color:var(--muted);line-height:1.78;margin-bottom:20px}
+.p-foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border)}
+.p-price{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:var(--gold)}
+.p-price small{font-size:.78rem;color:var(--muted);font-weight:300}
+.p-add{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-s);background:transparent;color:var(--gold);cursor:pointer;transition:all .3s;font-size:.78rem;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.p-add:hover{background:var(--gold);color:#080808;border-color:var(--gold)}
 
 /* ── WHY ── */
-#why{background:linear-gradient(180deg,var(--bg),var(--bg2));position:relative}
-#why::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-g),transparent)}
-.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:60px}
-.why-card{padding:34px;background:var(--card);border:1px solid var(--border);border-radius:20px;transition:all .35s ease;position:relative;overflow:hidden}
-.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .35s}
-.why-card:hover{border-color:var(--border-g);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
-.why-card:hover::before{opacity:1}
-.wi{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:22px}
-.wi-g{background:rgba(255,215,0,.1);color:var(--gold)}
-.wi-s{background:rgba(220,220,220,.08);color:var(--silver)}
-.wi-gr{background:rgba(50,128,100,.12);color:#4ecca3}
-.wi-b{background:rgba(100,149,237,.1);color:#6495ED}
-.why-t{font-size:1.15rem;font-weight:600;margin-bottom:11px}
-.why-d{font-size:.88rem;color:var(--muted);line-height:1.8}
-.cnt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.cnt-card{text-align:center;padding:30px 16px;background:rgba(255,215,0,.03);border:1px solid var(--border-g);border-radius:16px}
-.cnt-n{font-family:'Poppins',sans-serif;font-size:2.6rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px}
-.cnt-l{font-size:.78rem;color:var(--muted);letter-spacing:.5px}
+#why{padding:104px 0;background:var(--bg);position:relative;overflow:hidden}
+#why::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(212,175,55,.028),transparent 65%);pointer-events:none}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:64px}
+.why-card{padding:40px;border:1px solid var(--border);background:var(--card);position:relative;overflow:hidden;transition:border-color .4s,transform .4s}
+.why-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.why-card:hover{border-color:var(--border-s);transform:translateY(-4px)}
+.why-card:hover::after{opacity:1}
+.w-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--gold);border:1px solid var(--border-s);margin-bottom:24px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.w-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;color:var(--cream);margin-bottom:13px}
+.w-desc{font-size:.83rem;color:var(--muted);line-height:1.88}
+.cnt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.cnt-item{padding:36px 20px;text-align:center;background:var(--bg)}
+.cnt-n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:8px}
+.cnt-l{font-family:'Poppins',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 
 /* ── TESTIMONIALS ── */
-#testi{background:var(--bg2);position:relative}
-#testi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-g),transparent)}
-.swiper-t{padding:16px 8px 56px !important}
-.t-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;transition:border-color .3s}
-.t-card:hover{border-color:var(--border-g)}
-.stars{display:flex;gap:3px;margin-bottom:18px}
-.stars i{color:var(--gold);font-size:.85rem}
-.t-txt{font-size:.92rem;color:var(--silver);line-height:1.8;margin-bottom:26px;font-style:italic}
-.t-auth{display:flex;align-items:center;gap:13px}
-.av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:700;color:#0A0A0F;flex-shrink:0}
-.a-name{font-weight:600;font-size:.92rem;margin-bottom:2px}
-.a-role{font-size:.75rem;color:var(--muted)}
-.swiper-pagination-bullet{background:var(--border) !important;opacity:1 !important;width:8px !important;height:8px !important}
-.swiper-pagination-bullet-active{background:var(--gold) !important;width:24px !important;border-radius:4px !important}
+#testi{padding:104px 0;background:var(--bg2);position:relative}
+#testi::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-s),transparent)}
+.swiper-t{padding:14px 4px 60px !important}
+.t-card{padding:34px;background:var(--card);border:1px solid var(--border);transition:border-color .4s}
+.t-card:hover{border-color:var(--border-s)}
+.t-stars{display:flex;gap:4px;margin-bottom:22px}
+.t-stars i{font-size:.76rem;color:var(--gold)}
+.t-q{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(237,232,224,.72);line-height:1.92;margin-bottom:28px}
+.t-auth{display:flex;align-items:center;gap:14px}
+.t-av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:#080808;flex-shrink:0}
+.t-name{font-family:'Poppins',sans-serif;font-size:.83rem;font-weight:600;color:var(--cream);margin-bottom:3px}
+.t-role{font-size:.72rem;color:var(--muted)}
+.swiper-pagination-bullet{background:var(--border)!important;opacity:1!important;width:8px!important;height:8px!important}
+.swiper-pagination-bullet-active{background:var(--gold)!important;width:28px!important;border-radius:4px!important}
 
 /* ── CONTACT ── */
-#contact{background:var(--bg)}
+#contact{padding:104px 0;background:var(--bg)}
 .ct-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.ct-feats{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:14px}
-.ct-feats li{display:flex;align-items:center;gap:13px;font-size:.88rem;color:var(--silver)}
-.fdot{width:7px;height:7px;background:var(--gold);border-radius:50%;flex-shrink:0;box-shadow:0 0 8px rgba(255,215,0,.5)}
-.socials{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
-.soc{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.88rem;text-decoration:none;transition:all .3s}
-.soc:hover{border-color:var(--border-g);color:var(--gold);background:rgba(255,215,0,.07);transform:translateY(-2px)}
-.ct-form{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:38px}
-.ft{font-size:1.3rem;font-weight:600;margin-bottom:6px}
-.fs{font-size:.85rem;color:var(--muted);margin-bottom:26px}
-.fg{margin-bottom:18px}
-.fg label{display:block;font-size:.8rem;font-weight:500;color:var(--silver);margin-bottom:7px;letter-spacing:.3px}
-.fg input,.fg select,.fg textarea{width:100%;padding:13px 17px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;color:var(--txt);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,215,0,.08)}
-.fg input::placeholder{color:var(--muted)}
-.fg textarea{min-height:95px;resize:vertical}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.f-sub{width:100%;margin-top:6px;justify-content:center}
-.ok-msg{display:none;text-align:center;padding:18px;background:rgba(50,128,100,.08);border:1px solid rgba(50,128,100,.25);border-radius:12px;color:#4ecca3;font-size:.88rem;margin-top:16px}
-.ok-msg.on{display:block;animation:fiu .5s ease}
+.ct-feats{list-style:none;margin-top:30px;display:flex;flex-direction:column;gap:15px}
+.ct-feats li{display:flex;align-items:center;gap:14px;font-size:.86rem;color:rgba(237,232,224,.58)}
+.ct-feats li::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0}
+.ct-socs{display:flex;gap:11px;margin-top:38px;flex-wrap:wrap}
+.ct-soc{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.84rem;text-decoration:none;transition:all .3s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.ct-soc:hover{border-color:var(--border-s);color:var(--gold);background:rgba(212,175,55,.05);transform:translateY(-2px)}
+.ct-panel{background:var(--card);border:1px solid var(--border);padding:52px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;position:relative;overflow:hidden}
+.ct-panel::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:55%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ct-fb{width:72px;height:72px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;border:1px solid var(--border-s);color:var(--gold);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.ct-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;color:var(--cream)}
+.ct-desc{font-size:.84rem;color:var(--muted);line-height:1.85;max-width:280px}
 
 /* ── FOOTER ── */
-footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 28px}
-.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
-.ft-desc{font-size:.85rem;color:var(--muted);line-height:1.8;margin:14px 0 22px}
-.ft-col-t{font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
-.ft-links{list-style:none;display:flex;flex-direction:column;gap:11px}
-.ft-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .3s}
-.ft-links a:hover{color:var(--gold)}
-.ft-bot{border-top:1px solid var(--border);padding-top:26px;display:flex;align-items:center;justify-content:space-between}
-.ft-copy{font-size:.78rem;color:var(--muted)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:72px 0 32px}
+.ft-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+.ft-desc{font-size:.83rem;color:var(--muted);line-height:1.95;margin:18px 0 26px;max-width:295px}
+.ft-ct{font-family:'Poppins',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-links a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .3s}
+.ft-links a:hover{color:var(--cream)}
+.ft-bot{border-top:1px solid var(--border);padding-top:28px;display:flex;align-items:center;justify-content:space-between}
+.ft-copy{font-size:.74rem;color:var(--muted)}
 .ft-copy span{color:var(--gold)}
+.ft-leg{display:flex;gap:20px}
+.ft-leg a{font-size:.74rem;color:var(--muted);text-decoration:none;transition:color .3s}
+.ft-leg a:hover{color:var(--cream)}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .prod-grid{grid-template-columns:repeat(2,1fr)}
   .ft-top{grid-template-columns:1fr 1fr;gap:32px}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-g{grid-template-columns:repeat(2,1fr)}
   .stat:nth-child(2){border-right:none}
   .cnt-row{grid-template-columns:repeat(2,1fr)}
+  .ed-content{padding:60px 48px}
 }
 @media(max-width:768px){
-  section{padding:68px 0}
-  .nav-links,.nav-cta{display:none}
+  .nav-links,.nav-cta-d{display:none}
   .ham{display:flex}
-  .prod-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+  .editorial,.editorial.rev{grid-template-columns:1fr;direction:ltr;min-height:auto}
+  .ed-img{height:62vh}
+  .ed-img-wrap{inset:0}
+  .ed-content{padding:50px 28px}
+  .ed-content::before{display:none}
+  .ed-num{font-size:5rem;bottom:18px;right:18px}
+  .editorial.rev .ed-num{left:18px;right:auto}
+  .prod-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
   .why-grid{grid-template-columns:1fr}
-  .ct-wrap{grid-template-columns:1fr;gap:44px}
+  .ct-wrap{grid-template-columns:1fr;gap:48px}
   .ft-top{grid-template-columns:1fr;gap:28px}
-  .ft-bot{flex-direction:column;gap:14px;text-align:center}
-  .frow{grid-template-columns:1fr}
-  .hero-cta{flex-direction:column;align-items:center}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .ft-bot{flex-direction:column;gap:16px;text-align:center}
+  .h-cta{flex-direction:column;align-items:center}
 }
 @media(max-width:480px){
-  .ct-form{padding:26px 18px}
-  .why-card{padding:26px 22px}
+  .container{padding:0 20px}
+  .ed-content{padding:38px 20px}
+  .why-card{padding:28px 24px}
+  .ct-panel{padding:36px 22px}
+}
+
+/* ══════════════════════════════════════
+   3D + CONTINUOUS ANIMATIONS
+══════════════════════════════════════ */
+
+/* Background zoom — dramatic pan + zoom */
+@keyframes hzoom{
+  0%  {transform:scale(1)    translateY(0)     translateX(0)}
+  25% {transform:scale(1.18) translateY(-3%)   translateX(1.5%)}
+  50% {transform:scale(1.12) translateY(-1.5%) translateX(-2%)}
+  75% {transform:scale(1.2)  translateY(-4%)   translateX(1%)}
+  100%{transform:scale(1)    translateY(0)     translateX(0)}
+}
+.h-bg{animation-duration:13s!important;animation-timing-function:ease-in-out!important}
+
+/* Hero grid drift */
+@keyframes gridDrift{
+  0%,100%{transform:scale(1) translate(0,0)}
+  50%{transform:scale(1.04) translate(-10px,-5px)}
+}
+.h-grid{animation:gridDrift 20s ease-in-out infinite}
+
+/* Hero particles (injected via JS) */
+.h-p-dot{position:absolute;border-radius:50%;pointer-events:none;background:var(--gold);
+  animation:particleRise var(--dur,8s) ease-in-out var(--del,0s) infinite}
+@keyframes particleRise{
+  0%  {transform:translateY(0) translateX(0);opacity:0}
+  12% {opacity:.8}
+  88% {opacity:.25}
+  100%{transform:translateY(-96vh) translateX(var(--dx,20px));opacity:0}
+}
+
+/* Badge float after enter */
+.h-badge{animation:hin .9s ease .1s both,badgeFloat 4.2s ease-in-out 1.2s infinite}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* Product cards bob (translate property — no conflict with JS tilt transform) */
+@keyframes cardBob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.prod-card{animation:cardBob 3.6s ease-in-out infinite}
+.prod-card:nth-child(2){animation-delay:.55s}
+.prod-card:nth-child(3){animation-delay:1.1s}
+.prod-card:nth-child(4){animation-delay:.28s}
+.prod-card:nth-child(5){animation-delay:.83s}
+.prod-card:nth-child(6){animation-delay:1.38s}
+.prod-card:hover{animation-play-state:paused}
+
+/* Product image breathe */
+.p-img img{animation:imgBreath 4s ease-in-out infinite}
+@keyframes imgBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.prod-card:hover .p-img img{animation:none;transform:scale(1.08)!important}
+
+/* Editorial images — float + drift (separate from parallax wrapper) */
+.ed-img-wrap img{animation:edDrift 9s ease-in-out infinite;will-change:transform}
+.ed-img-wrap:nth-of-type(odd) img{animation-delay:-3s}
+@keyframes edDrift{
+  0%  {transform:scale(1.08) translate(0,0)}
+  25% {transform:scale(1.16) translate(-14px,-10px)}
+  50% {transform:scale(1.12) translate(10px,8px)}
+  75% {transform:scale(1.18) translate(-8px,12px)}
+  100%{transform:scale(1.08) translate(0,0)}
+}
+.prod-grid{perspective:1400px}
+
+/* Button shimmer sweep */
+.btn-gold::after{content:'';position:absolute;top:-50%;left:-65%;width:35%;height:200%;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.24) 50%,transparent 70%);
+  animation:btnShimmer 4s ease-in-out infinite;pointer-events:none;transform:skewX(-15deg)}
+@keyframes btnShimmer{0%{left:-65%}55%,100%{left:155%}}
+
+/* Button glow pulse */
+.btn-gold{animation:btnGlow 3s ease-in-out infinite}
+@keyframes btnGlow{
+  0%,100%{filter:drop-shadow(0 0 0px rgba(212,175,55,0))}
+  50%{filter:drop-shadow(0 6px 20px rgba(212,175,55,.6))}
+}
+.btn-gold:hover{animation-play-state:paused}
+
+/* Why cards float */
+@keyframes whyFloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.why-card{animation:whyFloat 4.2s ease-in-out infinite}
+.why-card:nth-child(2){animation-delay:.7s}
+.why-card:nth-child(3){animation-delay:1.4s}
+.why-card:nth-child(4){animation-delay:2.1s}
+.why-card:hover{animation-play-state:paused}
+.why-grid{perspective:1200px}
+
+/* Why icons glow */
+.w-icon{animation:iconGlow 3.8s ease-in-out infinite}
+@keyframes iconGlow{
+  0%,100%{filter:none;color:var(--gold)}
+  50%{filter:drop-shadow(0 0 12px rgba(212,175,55,.65));color:var(--gold-l)}
+}
+
+/* Logo pulse */
+.logo-img{animation:logoGlow 3.5s ease-in-out infinite}
+@keyframes logoGlow{
+  0%,100%{filter:drop-shadow(0 0 0px transparent)}
+  50%{filter:drop-shadow(0 0 10px rgba(212,175,55,.55))}
+}
+
+/* Scroll mouse float */
+.s-mouse{animation:mouseFloat 2.8s ease-in-out infinite}
+@keyframes mouseFloat{
+  0%,100%{transform:translateY(0);border-color:rgba(212,175,55,.28)}
+  50%{transform:translateY(-5px);border-color:rgba(212,175,55,.6)}
+}
+
+/* Divider gem spin */
+.dvg{animation:gemBeat 3.5s ease-in-out infinite}
+@keyframes gemBeat{
+  0%,100%{transform:rotate(45deg) scale(1);background:var(--gold)}
+  50%{transform:rotate(225deg) scale(1.7);background:var(--gold-l)}
+}
+
+/* Atmospheric orb on why section */
+#why::after{content:'';position:absolute;bottom:-20%;right:-8%;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(212,175,55,.045),transparent 65%);
+  pointer-events:none;animation:orbPulse 9s ease-in-out infinite}
+@keyframes orbPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.25);opacity:1}}
+
+/* Editorial numbers floating */
+.ed-num{animation:numFloat 6s ease-in-out infinite}
+@keyframes numFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* Testimonial cards subtle tilt-bob */
+@keyframes tCardBob{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.t-card{animation:tCardBob 4s ease-in-out infinite}
+
+/* ══════════════════════════════════════
+   FLOATING CONTACT BUTTONS
+══════════════════════════════════════ */
+#float-contacts{
+  position:fixed;bottom:28px;right:28px;z-index:9998;
+  display:flex;flex-direction:column;gap:13px;align-items:flex-end
+}
+.fc-item{position:relative;display:flex;align-items:center;gap:10px}
+.fc-label{
+  font-family:'Poppins',sans-serif;font-size:.62rem;font-weight:600;
+  letter-spacing:.4px;color:#fff;
+  background:rgba(10,10,10,.9);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.1);
+  padding:6px 12px;border-radius:5px;white-space:nowrap;
+  opacity:0;transform:translateX(10px);
+  transition:all .3s ease;pointer-events:none
+}
+.fc-item:hover .fc-label{opacity:1;transform:translateX(0)}
+.fc-btn{
+  position:relative;width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.95rem;text-decoration:none;flex-shrink:0
+}
+/* Bob via keyframes using translate property */
+@keyframes fcBob{0%,100%{translate:0 0;scale:1}50%{translate:0 -8px;scale:1.04}}
+.fc-btn{animation:fcBob var(--fcd,3s) ease-in-out var(--fcdel,0s) infinite}
+.fc-btn:hover{animation-play-state:paused;scale:1.14!important;translate:0 -4px!important}
+
+/* Pulse rings */
+.fc-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:2px solid currentColor;
+  animation:fcRing 2.4s ease-out var(--rd,0s) infinite
+}
+.fc-ring-2{animation-delay:calc(var(--rd,0s) + 1.2s)!important}
+@keyframes fcRing{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.5);opacity:0}}
+
+/* Zalo */
+.fc-zalo{
+  background:linear-gradient(145deg,#07e063,#04aa46);
+  box-shadow:0 5px 24px rgba(5,200,80,.5);
+  --fcd:3.2s;--fcdel:0s
+}
+.fc-zalo .fc-ring{color:#06c755;--rd:0s}
+.fc-zalo-txt{font-family:'Poppins',sans-serif;font-size:.72rem;font-weight:900;letter-spacing:-.5px;line-height:1}
+
+/* Hotline */
+.fc-hotline{
+  background:linear-gradient(145deg,#ff6f43,#e53030);
+  box-shadow:0 5px 24px rgba(255,80,50,.5);
+  --fcd:3.5s;--fcdel:.55s
+}
+.fc-hotline .fc-ring{color:#ff6b35;--rd:.45s}
+.fc-hotline .fc-ico{animation:phoneVibe .5s ease-in-out infinite alternate}
+@keyframes phoneVibe{from{transform:rotate(-15deg)}to{transform:rotate(15deg)}}
+.fc-hotline:hover .fc-ico{animation-play-state:paused}
+
+/* Facebook */
+.fc-facebook{
+  background:linear-gradient(145deg,#2196f3,#0b47a6);
+  box-shadow:0 5px 24px rgba(24,119,242,.5);
+  --fcd:2.9s;--fcdel:1.1s
+}
+.fc-facebook .fc-ring{color:#1877f2;--rd:.9s}
+
+@media(max-width:480px){
+  #float-contacts{bottom:16px;right:12px;gap:9px}
+  .fc-btn{width:36px;height:36px;font-size:.82rem}
 }
 </style>
 </head>
@@ -241,19 +465,17 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
   <div class="container">
     <a href="#" class="logo">
       <img src="images/logo.jpg" alt="Fox Design Logo" class="logo-img">
-      <div class="logo-text">
-        <span>Fox Design</span>
-        <span>Nghệ Thuật Ánh Sáng</span>
-      </div>
+      <div><span class="logo-t">Fox Design</span><span class="logo-s">Nghệ Thuật Ánh Sáng</span></div>
     </a>
     <ul class="nav-links">
+      <li><a href="#editorial-1">Bộ Sưu Tập</a></li>
       <li><a href="#products">Sản Phẩm</a></li>
       <li><a href="#why">Về Chúng Tôi</a></li>
       <li><a href="#testi">Đánh Giá</a></li>
       <li><a href="#contact">Liên Hệ</a></li>
     </ul>
-    <div class="nav-cta">
-      <a href="#contact" class="btn btn-gold" style="padding:12px 24px;font-size:.84rem;min-height:44px">Đặt Hàng Ngay</a>
+    <div class="nav-cta-d">
+      <a href="#contact" class="btn btn-gold" style="padding:12px 28px;font-size:.7rem">Đặt Hàng Ngay</a>
     </div>
     <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
@@ -261,161 +483,197 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
 
 <!-- MOBILE MENU -->
 <div class="mob" id="mob">
+  <a href="#editorial-1" class="mob-lnk">Bộ Sưu Tập</a>
   <a href="#products" class="mob-lnk">Sản Phẩm</a>
   <a href="#why" class="mob-lnk">Về Chúng Tôi</a>
   <a href="#testi" class="mob-lnk">Đánh Giá</a>
   <a href="#contact" class="mob-lnk">Liên Hệ</a>
-  <a href="#contact" class="btn btn-gold" style="margin-top:12px">Đặt Hàng Ngay</a>
+  <a href="#contact" class="btn btn-gold" style="margin-top:18px">Đặt Hàng Ngay</a>
 </div>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="grid-bg"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-  <div class="hero-inner">
-    <div class="badge"><span class="dot"></span>Fox Design — Bộ Sưu Tập Nghệ Nhân Cao Cấp 2026</div>
-    <h1 class="hero-h"><span class="gold">Fox</span><br>Design</h1>
-    <p class="hero-sub">Kirigami Lightbox — Nghệ Thuật Ánh Sáng</p>
-    <p class="hero-p">Hộp đèn kirigami thủ công — nơi nghệ thuật gấp giấy truyền thống gặp gỡ ánh sáng hiện đại. Mỗi tác phẩm là một hành trình thẩm mỹ độc đáo, sang trọng và tao nhã.</p>
-    <div class="hero-cta">
-      <a href="#products" class="btn btn-gold">Khám Phá Bộ Sưu Tập <i class="fas fa-arrow-right"></i></a>
+  <div class="h-bg"></div>
+  <div class="h-ov"></div>
+  <div class="h-grid"></div>
+  <div class="h-grain"></div>
+  <div class="h-inner">
+    <div class="h-badge"><span class="h-dot"></span>Fox Design — Bộ Sưu Tập Nghệ Nhân Cao Cấp 2026</div>
+    <h1 class="h-title"><span class="gold">Fox</span><br>Design</h1>
+    <p class="h-sub">Kirigami Lightbox — Nghệ Thuật Ánh Sáng</p>
+    <div class="h-rule"></div>
+    <p class="h-p">Hộp đèn kirigami thủ công — nơi nghệ thuật gấp giấy truyền thống gặp gỡ ánh sáng hiện đại. Mỗi tác phẩm là một hành trình thẩm mỹ độc đáo, sang trọng và tao nhã.</p>
+    <div class="h-cta">
+      <a href="#editorial-1" class="btn btn-gold">Khám Phá Bộ Sưu Tập <i class="fas fa-arrow-right"></i></a>
       <a href="#why" class="btn btn-out">Tìm Hiểu Thêm</a>
     </div>
   </div>
-  <div class="scroll-i">
-    <div class="mouse"><div class="wheel"></div></div>
+  <div class="scroll-ind">
+    <div class="s-mouse"><div class="s-wheel"></div></div>
     <span>Cuộn Xuống</span>
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat"><div class="stat-n" data-count="5000" data-suf="+">0</div><div class="stat-l">Khách Hàng Hài Lòng</div></div>
-      <div class="stat"><div class="stat-n" data-count="50" data-suf="+">0</div><div class="stat-l">Mẫu Thiết Kế</div></div>
-      <div class="stat"><div class="stat-n" data-count="98" data-suf="%">0</div><div class="stat-l">Đánh Giá 5 Sao</div></div>
-      <div class="stat"><div class="stat-n" data-count="3" data-suf=" Năm">0</div><div class="stat-l">Kinh Nghiệm</div></div>
-    </div>
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-g">
+    <div class="stat"><div class="stat-n" data-count="5000" data-suf="+">0</div><div class="stat-l">Khách Hàng Hài Lòng</div></div>
+    <div class="stat"><div class="stat-n" data-count="50" data-suf="+">0</div><div class="stat-l">Mẫu Thiết Kế</div></div>
+    <div class="stat"><div class="stat-n" data-count="98" data-suf="%">0</div><div class="stat-l">Đánh Giá 5 Sao</div></div>
+    <div class="stat"><div class="stat-n" data-count="3" data-suf=" Năm">0</div><div class="stat-l">Kinh Nghiệm</div></div>
   </div>
 </div>
+
+<!-- EDITORIAL 1 — Image LEFT + Text RIGHT -->
+<section class="editorial" id="editorial-1">
+  <div class="ed-img">
+    <div class="ed-img-wrap" data-parallax>
+      <img src="images/sp-1.jpg" alt="Rừng Trăng Vàng">
+    </div>
+    <div class="ed-img-ov"></div>
+    <div class="ed-num">01</div>
+  </div>
+  <div class="ed-content">
+    <span class="ed-cat" data-r>Thiên Nhiên</span>
+    <h2 class="ed-title" data-r data-d="1">Rừng Trăng <em>Vàng</em></h2>
+    <div class="divider" data-r data-d="1"><div class="dvl"></div><div class="dvg"></div><div class="dvl r"></div></div>
+    <p class="ed-desc" data-r data-d="2">Cảnh rừng núi huyền bí dưới ánh trăng vàng ấm áp. Mỗi lớp giấy được cắt tỉ mỉ, tạo ra chiều sâu không gian độc đáo — nơi thiên nhiên và nghệ thuật giao thoa hoàn hảo.</p>
+    <ul class="ed-feats" data-r data-d="2">
+      <li>Giấy cao cấp nhập khẩu, độ bền vượt trội</li>
+      <li>Đèn LED 3000K dịu nhẹ bảo vệ mắt</li>
+      <li>Khung gỗ tự nhiên, hoàn thiện thủ công</li>
+    </ul>
+    <div class="ed-foot" data-r data-d="3">
+      <div class="ed-price">490.000đ<small> / hộp</small></div>
+      <a href="#contact" class="btn btn-gold">Đặt Ngay</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL 2 — Text LEFT + Image RIGHT -->
+<section class="editorial rev" id="editorial-2">
+  <div class="ed-img">
+    <div class="ed-img-wrap" data-parallax>
+      <img src="images/sp-2.jpg" alt="Hoa Anh Đào Xanh">
+    </div>
+    <div class="ed-img-ov"></div>
+    <div class="ed-num">02</div>
+  </div>
+  <div class="ed-content">
+    <span class="ed-cat" data-r>Lãng Mạn</span>
+    <h2 class="ed-title" data-r data-d="1">Hoa Anh Đào <em>Xanh</em></h2>
+    <div class="divider" data-r data-d="1"><div class="dvl"></div><div class="dvg"></div><div class="dvl r"></div></div>
+    <p class="ed-desc" data-r data-d="2">Vẻ đẹp mùa xuân trong tông xanh ngọc huyền diệu. Những cánh hoa được tái hiện tinh tế qua từng đường cắt thủ công — nhẹ nhàng, thư thái và đầy cảm xúc.</p>
+    <ul class="ed-feats" data-r data-d="2">
+      <li>Phù hợp quà tặng sinh nhật, kỷ niệm</li>
+      <li>Cá nhân hóa thông điệp theo yêu cầu</li>
+      <li>Đóng gói sang trọng, sẵn sàng làm quà</li>
+    </ul>
+    <div class="ed-foot" data-r data-d="3">
+      <div class="ed-price">520.000đ<small> / hộp</small></div>
+      <a href="#contact" class="btn btn-gold">Đặt Ngay</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL 3 — Image LEFT + Text RIGHT -->
+<section class="editorial" id="editorial-3">
+  <div class="ed-img">
+    <div class="ed-img-wrap" data-parallax>
+      <img src="images/sp-4.jpg" alt="Hải Đăng Bạc">
+    </div>
+    <div class="ed-img-ov"></div>
+    <div class="ed-num">03</div>
+  </div>
+  <div class="ed-content">
+    <span class="ed-cat" data-r>Phiên Bản Giới Hạn</span>
+    <h2 class="ed-title" data-r data-d="1">Hải Đăng <em>Bạc</em></h2>
+    <div class="divider" data-r data-d="1"><div class="dvl"></div><div class="dvg"></div><div class="dvl r"></div></div>
+    <p class="ed-desc" data-r data-d="2">Ngọn hải đăng cô độc giữa biển đêm mênh mông — biểu tượng của hy vọng, kiên định và khám phá. Phiên bản giới hạn với chữ ký nghệ nhân và chứng nhận độc bản.</p>
+    <ul class="ed-feats" data-r data-d="2">
+      <li>Số lượng giới hạn — chỉ 100 hộp toàn quốc</li>
+      <li>Chữ ký nghệ nhân và giấy chứng nhận độc bản</li>
+      <li>Hộp đựng premium da PU cao cấp</li>
+    </ul>
+    <div class="ed-foot" data-r data-d="3">
+      <div class="ed-price">650.000đ<small> / hộp</small></div>
+      <a href="#contact" class="btn btn-gold">Đặt Ngay</a>
+    </div>
+  </div>
+</section>
 
 <!-- PRODUCTS -->
 <section id="products">
   <div class="container">
-    <div class="sec-hd" data-aos="fade-up">
+    <div class="sec-hd c" data-r>
       <span class="lbl">Bộ Sưu Tập</span>
       <h2 class="sec-title">Sản Phẩm <span class="gold">Nổi Bật</span></h2>
       <p class="sec-desc">Mỗi chiếc hộp đèn kirigami là một tác phẩm nghệ thuật thủ công tinh tế, được chế tác tỉ mỉ bởi các nghệ nhân.</p>
     </div>
     <div class="prod-grid">
 
-      <!-- P1 -->
-      <div class="prod-card" data-aos="fade-up" data-aos-delay="0">
-        <div class="prod-img">
-          <img src="images/sp-1.jpg" alt="Kirigami Lightbox — Sản phẩm 1">
-          <div class="prod-badge">Bestseller</div>
-        </div>
-        <div class="prod-info">
-          <div class="prod-cat">Thiên Nhiên</div>
-          <h3 class="prod-name">Rừng Trăng Vàng</h3>
-          <p class="prod-desc">Cảnh rừng núi huyền bí dưới ánh trăng vàng, tạo không gian thơ mộng và yên bình tuyệt vời.</p>
-          <div class="prod-foot">
-            <div class="prod-price">490.000đ<small>/ hộp</small></div>
-            <button class="prod-btn"><i class="fas fa-plus"></i></button>
-          </div>
+      <div class="prod-card" data-r data-d="1">
+        <div class="p-img"><img src="images/sp-1.jpg" alt="Rừng Trăng Vàng"><div class="p-badge">Bestseller</div></div>
+        <div class="p-info">
+          <div class="p-cat">Thiên Nhiên</div>
+          <h3 class="p-name">Rừng Trăng Vàng</h3>
+          <p class="p-desc">Cảnh rừng núi huyền bí dưới ánh trăng vàng, tạo không gian thơ mộng và yên bình tuyệt vời.</p>
+          <div class="p-foot"><div class="p-price">490.000đ<small> / hộp</small></div><button class="p-add"><i class="fas fa-plus"></i></button></div>
         </div>
       </div>
 
-      <!-- P2 -->
-      <div class="prod-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="prod-img">
-          <img src="images/sp-2.jpg" alt="Kirigami Lightbox — Sản phẩm 2">
-          <div class="prod-badge">Mới</div>
-        </div>
-        <div class="prod-info">
-          <div class="prod-cat">Lãng Mạn</div>
-          <h3 class="prod-name">Hoa Anh Đào Xanh</h3>
-          <p class="prod-desc">Vẻ đẹp mùa xuân trong tông xanh ngọc huyền diệu, mang cảm giác nhẹ nhàng và thư thái.</p>
-          <div class="prod-foot">
-            <div class="prod-price">520.000đ<small>/ hộp</small></div>
-            <button class="prod-btn"><i class="fas fa-plus"></i></button>
-          </div>
+      <div class="prod-card" data-r data-d="2">
+        <div class="p-img"><img src="images/sp-2.jpg" alt="Hoa Anh Đào Xanh"><div class="p-badge">Mới</div></div>
+        <div class="p-info">
+          <div class="p-cat">Lãng Mạn</div>
+          <h3 class="p-name">Hoa Anh Đào Xanh</h3>
+          <p class="p-desc">Vẻ đẹp mùa xuân trong tông xanh ngọc huyền diệu, mang cảm giác nhẹ nhàng và thư thái.</p>
+          <div class="p-foot"><div class="p-price">520.000đ<small> / hộp</small></div><button class="p-add"><i class="fas fa-plus"></i></button></div>
         </div>
       </div>
 
-      <!-- P3 -->
-      <div class="prod-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="prod-img">
-          <img src="images/sp-3.jpg" alt="Kirigami Lightbox — Sản phẩm 3">
-        </div>
-        <div class="prod-info">
-          <div class="prod-cat">Đô Thị</div>
-          <h3 class="prod-name">Thành Phố Vàng</h3>
-          <p class="prod-desc">Đường chân trời thành phố đêm lung linh trong sắc vàng ấm áp — vẻ đẹp đô thị hiện đại.</p>
-          <div class="prod-foot">
-            <div class="prod-price">580.000đ<small>/ hộp</small></div>
-            <button class="prod-btn"><i class="fas fa-plus"></i></button>
-          </div>
+      <div class="prod-card" data-r data-d="3">
+        <div class="p-img"><img src="images/sp-3.jpg" alt="Thành Phố Vàng"></div>
+        <div class="p-info">
+          <div class="p-cat">Đô Thị</div>
+          <h3 class="p-name">Thành Phố Vàng</h3>
+          <p class="p-desc">Đường chân trời thành phố đêm lung linh trong sắc vàng ấm áp — vẻ đẹp đô thị hiện đại.</p>
+          <div class="p-foot"><div class="p-price">580.000đ<small> / hộp</small></div><button class="p-add"><i class="fas fa-plus"></i></button></div>
         </div>
       </div>
 
-      <!-- P4 -->
-      <div class="prod-card" data-aos="fade-up" data-aos-delay="0">
-        <div class="prod-img">
-          <img src="images/sp-4.jpg" alt="Kirigami Lightbox — Sản phẩm 4">
-          <div class="prod-badge">Giới Hạn</div>
-        </div>
-        <div class="prod-info">
-          <div class="prod-cat">Biển Cả</div>
-          <h3 class="prod-name">Hải Đăng Bạc</h3>
-          <p class="prod-desc">Ngọn hải đăng cô độc giữa biển đêm mênh mông — biểu tượng của hy vọng và khám phá.</p>
-          <div class="prod-foot">
-            <div class="prod-price">650.000đ<small>/ hộp</small></div>
-            <button class="prod-btn"><i class="fas fa-plus"></i></button>
-          </div>
+      <div class="prod-card" data-r data-d="1">
+        <div class="p-img"><img src="images/sp-4.jpg" alt="Hải Đăng Bạc"><div class="p-badge">Giới Hạn</div></div>
+        <div class="p-info">
+          <div class="p-cat">Biển Cả</div>
+          <h3 class="p-name">Hải Đăng Bạc</h3>
+          <p class="p-desc">Ngọn hải đăng cô độc giữa biển đêm mênh mông — biểu tượng của hy vọng và khám phá.</p>
+          <div class="p-foot"><div class="p-price">650.000đ<small> / hộp</small></div><button class="p-add"><i class="fas fa-plus"></i></button></div>
         </div>
       </div>
 
-      <!-- P5 -->
-      <div class="prod-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="prod-img">
-          <img src="images/sp-5.jpg" alt="Kirigami Lightbox — Sản phẩm 5">
-        </div>
-        <div class="prod-info">
-          <div class="prod-cat">Á Đông</div>
-          <h3 class="prod-name">Tháp Đèn Đỏ</h3>
-          <p class="prod-desc">Vẻ đẹp kiến trúc Á Đông huyền bí dưới ánh đèn lồng đỏ rực — tinh tế và đầy chiều sâu.</p>
-          <div class="prod-foot">
-            <div class="prod-price">560.000đ<small>/ hộp</small></div>
-            <button class="prod-btn"><i class="fas fa-plus"></i></button>
-          </div>
+      <div class="prod-card" data-r data-d="2">
+        <div class="p-img"><img src="images/sp-5.jpg" alt="Tháp Đèn Đỏ"></div>
+        <div class="p-info">
+          <div class="p-cat">Á Đông</div>
+          <h3 class="p-name">Tháp Đèn Đỏ</h3>
+          <p class="p-desc">Vẻ đẹp kiến trúc Á Đông huyền bí dưới ánh đèn lồng đỏ rực — tinh tế và đầy chiều sâu.</p>
+          <div class="p-foot"><div class="p-price">560.000đ<small> / hộp</small></div><button class="p-add"><i class="fas fa-plus"></i></button></div>
         </div>
       </div>
 
-      <!-- P6 -->
-      <div class="prod-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="prod-img">
-          <img src="images/sp-6.jpg" alt="Kirigami Lightbox — Sản phẩm 6">
-          <div class="prod-badge">Cao Cấp</div>
-        </div>
-        <div class="prod-info">
-          <div class="prod-cat">Mùa Đông</div>
-          <h3 class="prod-name">Cực Quang Bắc</h3>
-          <p class="prod-desc">Cảnh đêm cực quang huyền ảo trên tuyết trắng — kết hợp hoàn hảo giữa lạnh lẽo và ấm áp.</p>
-          <div class="prod-foot">
-            <div class="prod-price">720.000đ<small>/ hộp</small></div>
-            <button class="prod-btn"><i class="fas fa-plus"></i></button>
-          </div>
+      <div class="prod-card" data-r data-d="3">
+        <div class="p-img"><img src="images/sp-6.jpg" alt="Cực Quang Bắc"><div class="p-badge">Cao Cấp</div></div>
+        <div class="p-info">
+          <div class="p-cat">Mùa Đông</div>
+          <h3 class="p-name">Cực Quang Bắc</h3>
+          <p class="p-desc">Cảnh đêm cực quang huyền ảo trên tuyết trắng — kết hợp hoàn hảo giữa lạnh lẽo và ấm áp.</p>
+          <div class="p-foot"><div class="p-price">720.000đ<small> / hộp</small></div><button class="p-add"><i class="fas fa-plus"></i></button></div>
         </div>
       </div>
 
     </div>
-    <div style="text-align:center;margin-top:44px" data-aos="fade-up">
+    <div style="text-align:center;margin-top:52px" data-r>
       <a href="#contact" class="btn btn-out">Xem Toàn Bộ Bộ Sưu Tập &nbsp;<i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
@@ -424,38 +682,38 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
 <!-- WHY -->
 <section id="why">
   <div class="container">
-    <div class="sec-hd c" data-aos="fade-up">
+    <div class="sec-hd c" data-r>
       <span class="lbl">Tại Sao Chọn Chúng Tôi</span>
       <h2 class="sec-title">Fox Design — <span class="gold">Khác Biệt</span></h2>
       <p class="sec-desc">Chúng tôi không chỉ bán sản phẩm — chúng tôi trao đến bạn một trải nghiệm thẩm mỹ độc đáo và cảm xúc chân thật.</p>
     </div>
     <div class="why-grid">
-      <div class="why-card" data-aos="fade-right">
-        <div class="wi wi-g"><i class="fas fa-gem"></i></div>
-        <h3 class="why-t">Thiết Kế Xuất Sắc</h3>
-        <p class="why-d">Mỗi thiết kế được nghiên cứu kỹ về tỉ lệ, ánh sáng và bóng tối. Chúng tôi ứng dụng nguyên lý kirigami truyền thống Nhật Bản kết hợp cùng cảm quan thẩm mỹ hiện đại để tạo nên những tác phẩm độc bản.</p>
+      <div class="why-card" data-r data-d="1">
+        <div class="w-icon"><i class="fas fa-gem"></i></div>
+        <h3 class="w-title">Thiết Kế Xuất Sắc</h3>
+        <p class="w-desc">Mỗi thiết kế được nghiên cứu kỹ về tỉ lệ, ánh sáng và bóng tối. Chúng tôi ứng dụng nguyên lý kirigami truyền thống Nhật Bản kết hợp cảm quan thẩm mỹ hiện đại.</p>
       </div>
-      <div class="why-card" data-aos="fade-left">
-        <div class="wi wi-s"><i class="fas fa-star"></i></div>
-        <h3 class="why-t">Chất Lượng Cao Cấp</h3>
-        <p class="why-d">Sử dụng giấy cao cấp đặc biệt, đèn LED dịu nhẹ bảo vệ mắt, khung gỗ tự nhiên bền đẹp. Mỗi chi tiết được kiểm tra nghiêm ngặt trước khi đến tay khách hàng, đảm bảo sự hoàn hảo tuyệt đối.</p>
+      <div class="why-card" data-r data-d="2">
+        <div class="w-icon"><i class="fas fa-star"></i></div>
+        <h3 class="w-title">Chất Lượng Cao Cấp</h3>
+        <p class="w-desc">Sử dụng giấy cao cấp đặc biệt, đèn LED dịu nhẹ bảo vệ mắt, khung gỗ tự nhiên bền đẹp. Mỗi chi tiết được kiểm tra nghiêm ngặt trước khi đến tay khách hàng.</p>
       </div>
-      <div class="why-card" data-aos="fade-right" data-aos-delay="80">
-        <div class="wi wi-gr"><i class="fas fa-leaf"></i></div>
-        <h3 class="why-t">Thân Thiện Môi Trường</h3>
-        <p class="why-d">Cam kết sử dụng vật liệu thân thiện môi trường. Giấy tái chế FSC, đèn LED tiết kiệm năng lượng, đóng gói từ vật liệu có thể tái sử dụng. Đẹp và có trách nhiệm với tương lai.</p>
+      <div class="why-card" data-r data-d="1">
+        <div class="w-icon"><i class="fas fa-leaf"></i></div>
+        <h3 class="w-title">Thân Thiện Môi Trường</h3>
+        <p class="w-desc">Cam kết sử dụng vật liệu thân thiện môi trường. Giấy tái chế FSC, đèn LED tiết kiệm năng lượng, đóng gói từ vật liệu có thể tái sử dụng.</p>
       </div>
-      <div class="why-card" data-aos="fade-left" data-aos-delay="80">
-        <div class="wi wi-b"><i class="fas fa-lightbulb"></i></div>
-        <h3 class="why-t">Sáng Tạo Không Ngừng</h3>
-        <p class="why-d">Không ngừng sáng tạo và phát triển mẫu mới. Hệ thống điều chỉnh độ sáng thông minh, tính năng hẹn giờ tự động và các hiệu ứng ánh sáng đặc biệt độc quyền chỉ có tại Fox Design.</p>
+      <div class="why-card" data-r data-d="2">
+        <div class="w-icon"><i class="fas fa-lightbulb"></i></div>
+        <h3 class="w-title">Sáng Tạo Không Ngừng</h3>
+        <p class="w-desc">Không ngừng sáng tạo và phát triển mẫu mới. Hệ thống điều chỉnh độ sáng thông minh và các hiệu ứng ánh sáng đặc biệt độc quyền tại Fox Design.</p>
       </div>
     </div>
-    <div class="cnt-row" data-aos="fade-up">
-      <div class="cnt-card"><div class="cnt-n" data-target="5000" data-suf="+">0</div><div class="cnt-l">Khách Hàng Hài Lòng</div></div>
-      <div class="cnt-card"><div class="cnt-n" data-target="50" data-suf="+">0</div><div class="cnt-l">Mẫu Thiết Kế Độc Quyền</div></div>
-      <div class="cnt-card"><div class="cnt-n" data-target="98" data-suf="%">0</div><div class="cnt-l">Đánh Giá 5 Sao</div></div>
-      <div class="cnt-card"><div class="cnt-n" data-target="30" data-suf="+">0</div><div class="cnt-l">Giải Thưởng Nhận Được</div></div>
+    <div class="cnt-row" data-r>
+      <div class="cnt-item"><div class="cnt-n" data-target="5000" data-suf="+">0</div><div class="cnt-l">Khách Hàng Hài Lòng</div></div>
+      <div class="cnt-item"><div class="cnt-n" data-target="50" data-suf="+">0</div><div class="cnt-l">Mẫu Thiết Kế Độc Quyền</div></div>
+      <div class="cnt-item"><div class="cnt-n" data-target="98" data-suf="%">0</div><div class="cnt-l">Đánh Giá 5 Sao</div></div>
+      <div class="cnt-item"><div class="cnt-n" data-target="30" data-suf="+">0</div><div class="cnt-l">Giải Thưởng Nhận Được</div></div>
     </div>
   </div>
 </section>
@@ -463,38 +721,44 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
 <!-- TESTIMONIALS -->
 <section id="testi">
   <div class="container">
-    <div class="sec-hd c" data-aos="fade-up">
+    <div class="sec-hd c" data-r>
       <span class="lbl">Khách Hàng Nói Gì</span>
       <h2 class="sec-title">Đánh Giá <span class="gold">Thực Tế</span></h2>
       <p class="sec-desc">Hơn 5.000 khách hàng đã tin tưởng và yêu thích Fox Design.</p>
     </div>
-    <div class="swiper swiper-t" data-aos="fade-up">
+    <div class="swiper swiper-t" data-r>
       <div class="swiper-wrapper">
+
         <div class="swiper-slide"><div class="t-card">
-          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="t-txt">"Tôi mua chiếc Rừng Trăng Vàng để trang trí phòng làm việc và nó thực sự thay đổi không gian hoàn toàn. Ánh sáng ấm áp, thiết kế tinh tế — mỗi tối nhìn vào là thấy bình yên đến lạ."</p>
-          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#FFD700,#B8960C)">M</div><div><div class="a-name">Minh Anh Nguyễn</div><div class="a-role">Creative Director, Hà Nội</div></div></div>
+          <div class="t-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-q">"Tôi mua chiếc Rừng Trăng Vàng để trang trí phòng làm việc và nó thực sự thay đổi không gian hoàn toàn. Ánh sáng ấm áp, thiết kế tinh tế — mỗi tối nhìn vào là thấy bình yên đến lạ."</p>
+          <div class="t-auth"><div class="t-av" style="background:linear-gradient(135deg,#d4af37,#9a7e1e)">M</div><div><div class="t-name">Minh Anh Nguyễn</div><div class="t-role">Creative Director, Hà Nội</div></div></div>
         </div></div>
+
         <div class="swiper-slide"><div class="t-card">
-          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="t-txt">"Mua làm quà sinh nhật cho mẹ, mẹ thích lắm! Hộp đóng gói đẹp, sản phẩm chất lượng vượt mong đợi. Đèn sáng dịu, không gắt mắt. Fox Design thực sự là thương hiệu đáng tin cậy."</p>
-          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#328064,#1a4a3a)">T</div><div><div class="a-name">Thanh Hà Trần</div><div class="a-role">Kiến Trúc Sư, TP.HCM</div></div></div>
+          <div class="t-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-q">"Mua làm quà sinh nhật cho mẹ, mẹ thích lắm! Hộp đóng gói đẹp, sản phẩm chất lượng vượt mong đợi. Đèn sáng dịu, không gắt mắt. Fox Design thực sự là thương hiệu đáng tin cậy."</p>
+          <div class="t-auth"><div class="t-av" style="background:linear-gradient(135deg,#4a7a64,#2a4a3a)">T</div><div><div class="t-name">Thanh Hà Trần</div><div class="t-role">Kiến Trúc Sư, TP.HCM</div></div></div>
         </div></div>
+
         <div class="swiper-slide"><div class="t-card">
-          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="t-txt">"Đã order 3 lần rồi, lần nào cũng ưng ý. Cực Quang Bắc là bộ đẹp nhất tôi từng thấy. Bạn bè đến chơi ai cũng hỏi mua ở đâu. Chắc chắn sẽ tiếp tục ủng hộ Fox Design!"</p>
-          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#6495ED,#3060C0)">K</div><div><div class="a-name">Khôi Phạm</div><div class="a-role">Nhiếp Ảnh Gia, Đà Nẵng</div></div></div>
+          <div class="t-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-q">"Đã order 3 lần rồi, lần nào cũng ưng ý. Cực Quang Bắc là bộ đẹp nhất tôi từng thấy. Bạn bè đến chơi ai cũng hỏi mua ở đâu. Chắc chắn sẽ tiếp tục ủng hộ Fox Design!"</p>
+          <div class="t-auth"><div class="t-av" style="background:linear-gradient(135deg,#5a75c0,#2a3580)">K</div><div><div class="t-name">Khôi Phạm</div><div class="t-role">Nhiếp Ảnh Gia, Đà Nẵng</div></div></div>
         </div></div>
+
         <div class="swiper-slide"><div class="t-card">
-          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="t-txt">"Tôi là người yêu nghệ thuật và Fox Design thực sự là món đồ nghệ thuật chứ không chỉ là đèn trang trí. Hải Đăng Bạc có chiều sâu và cảm xúc đặc biệt. Tuyệt vời!"</p>
-          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#DCDCDC,#999)">L</div><div><div class="a-name">Linh Chi Vũ</div><div class="a-role">Nhà Thiết Kế Nội Thất</div></div></div>
+          <div class="t-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-q">"Tôi là người yêu nghệ thuật và Fox Design thực sự là món đồ nghệ thuật chứ không chỉ là đèn trang trí. Hải Đăng Bạc có chiều sâu và cảm xúc đặc biệt. Tuyệt vời!"</p>
+          <div class="t-auth"><div class="t-av" style="background:linear-gradient(135deg,#b0a898,#706560)">L</div><div><div class="t-name">Linh Chi Vũ</div><div class="t-role">Nhà Thiết Kế Nội Thất</div></div></div>
         </div></div>
+
         <div class="swiper-slide"><div class="t-card">
-          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-          <p class="t-txt">"Giao hàng nhanh, đóng gói cực kỳ cẩn thận. Sản phẩm y như hình, thậm chí còn đẹp hơn khi bật đèn lên. Team Fox Design hỗ trợ nhiệt tình, rất vui khi mua hàng ở đây."</p>
-          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#FFD700,#FF8C00)">B</div><div><div class="a-name">Bảo Châu Lê</div><div class="a-role">Blogger, Hồ Chí Minh</div></div></div>
+          <div class="t-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <p class="t-q">"Giao hàng nhanh, đóng gói cực kỳ cẩn thận. Sản phẩm y như hình, thậm chí còn đẹp hơn khi bật đèn lên. Team Fox Design hỗ trợ nhiệt tình, rất vui khi mua hàng ở đây."</p>
+          <div class="t-auth"><div class="t-av" style="background:linear-gradient(135deg,#d4af37,#b87020)">B</div><div><div class="t-name">Bảo Châu Lê</div><div class="t-role">Blogger, Hồ Chí Minh</div></div></div>
         </div></div>
+
       </div>
       <div class="swiper-pagination"></div>
     </div>
@@ -505,33 +769,31 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
 <section id="contact">
   <div class="container">
     <div class="ct-wrap">
-      <div data-aos="fade-right">
+      <div data-r="L">
         <span class="lbl">Liên Hệ</span>
         <h2 class="sec-title">Sẵn Sàng Đặt <span class="gold">Hàng?</span></h2>
-        <p style="color:var(--muted);font-size:.98rem;line-height:1.85">Liên hệ với chúng tôi ngay hôm nay để được tư vấn miễn phí và nhận ưu đãi đặc biệt dành riêng cho bạn.</p>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.95;margin-top:16px;max-width:400px;font-weight:300">Liên hệ với chúng tôi ngay hôm nay để được tư vấn miễn phí và nhận ưu đãi đặc biệt dành riêng cho bạn.</p>
         <ul class="ct-feats">
-          <li><span class="fdot"></span>Tư vấn thiết kế miễn phí theo yêu cầu</li>
-          <li><span class="fdot"></span>Giao hàng toàn quốc trong 3–5 ngày làm việc</li>
-          <li><span class="fdot"></span>Bảo hành 12 tháng, đổi trả trong 7 ngày</li>
-          <li><span class="fdot"></span>Cá nhân hóa thông điệp theo yêu cầu riêng</li>
-          <li><span class="fdot"></span>Hỗ trợ khách hàng 24/7 qua Zalo & Facebook</li>
+          <li>Tư vấn thiết kế miễn phí theo yêu cầu</li>
+          <li>Giao hàng toàn quốc trong 3–5 ngày làm việc</li>
+          <li>Bảo hành 12 tháng, đổi trả trong 7 ngày</li>
+          <li>Cá nhân hóa thông điệp theo yêu cầu riêng</li>
+          <li>Hỗ trợ khách hàng 24/7 qua Zalo & Facebook</li>
         </ul>
-        <div class="socials">
-          <a href="#" class="soc" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="soc" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="soc" title="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" class="soc" title="Shopee"><i class="fas fa-shopping-bag"></i></a>
-          <a href="#" class="soc" title="Zalo" style="font-size:.72rem;font-weight:700">Zalo</a>
+        <div class="ct-socs">
+          <a href="#" class="ct-soc" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="ct-soc" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="ct-soc" title="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="ct-soc" title="Shopee"><i class="fas fa-shopping-bag"></i></a>
+          <a href="#" class="ct-soc" title="Zalo" style="font-size:.6rem;font-weight:700;font-family:'Poppins',sans-serif">Zalo</a>
         </div>
       </div>
-      <div data-aos="fade-left">
-        <div class="ct-form" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;min-height:320px">
-          <div>
-            <div style="width:72px;height:72px;border-radius:18px;background:rgba(255,215,0,.1);border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px"><i class="fab fa-facebook-f" style="color:var(--gold)"></i></div>
-            <h3 style="font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:10px">Nhắn Tin Qua Facebook</h3>
-            <p style="font-size:.88rem;color:var(--muted);line-height:1.8;max-width:300px">Chúng tôi tư vấn trực tiếp qua Facebook — phản hồi nhanh, hỗ trợ tận tình.</p>
-          </div>
-          <a href="https://www.facebook.com/Kirigamilightbox.foxdesign" target="_blank" rel="noopener" class="btn btn-gold" style="padding:16px 40px;font-size:1rem">
+      <div data-r="R">
+        <div class="ct-panel">
+          <div class="ct-fb"><i class="fab fa-facebook-f"></i></div>
+          <h3 class="ct-title">Nhắn Tin Qua Facebook</h3>
+          <p class="ct-desc">Chúng tôi tư vấn trực tiếp qua Facebook — phản hồi nhanh, hỗ trợ tận tình.</p>
+          <a href="https://www.facebook.com/Kirigamilightbox.foxdesign" target="_blank" rel="noopener" class="btn btn-gold">
             <i class="fab fa-facebook-f"></i>&nbsp; Liên Hệ Ngay
           </a>
         </div>
@@ -547,18 +809,18 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
       <div>
         <a href="#" class="logo">
           <img src="images/logo.jpg" alt="Fox Design Logo" class="logo-img">
-          <div class="logo-text"><span>Fox Design</span><span>Nghệ Thuật Ánh Sáng</span></div>
+          <div><span class="logo-t">Fox Design</span><span class="logo-s">Nghệ Thuật Ánh Sáng</span></div>
         </a>
         <p class="ft-desc">Thương hiệu hộp đèn kirigami thủ công cao cấp hàng đầu Việt Nam. Mỗi sản phẩm là một tác phẩm nghệ thuật độc đáo, được chế tác với tâm huyết và đam mê thuần túy.</p>
-        <div class="socials">
-          <a href="#" class="soc"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="soc"><i class="fab fa-tiktok"></i></a>
-          <a href="#" class="soc"><i class="fas fa-shopping-bag"></i></a>
+        <div class="ct-socs">
+          <a href="#" class="ct-soc"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="ct-soc"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="ct-soc"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="ct-soc"><i class="fas fa-shopping-bag"></i></a>
         </div>
       </div>
       <div>
-        <div class="ft-col-t">Sản Phẩm</div>
+        <div class="ft-ct">Sản Phẩm</div>
         <ul class="ft-links">
           <li><a href="#">Bộ Sưu Tập Thiên Nhiên</a></li>
           <li><a href="#">Bộ Sưu Tập Lãng Mạn</a></li>
@@ -568,7 +830,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
         </ul>
       </div>
       <div>
-        <div class="ft-col-t">Hỗ Trợ</div>
+        <div class="ft-ct">Hỗ Trợ</div>
         <ul class="ft-links">
           <li><a href="#">Hướng Dẫn Sử Dụng</a></li>
           <li><a href="#">Chính Sách Đổi Trả</a></li>
@@ -578,7 +840,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
         </ul>
       </div>
       <div>
-        <div class="ft-col-t">Thông Tin</div>
+        <div class="ft-ct">Thông Tin</div>
         <ul class="ft-links">
           <li><a href="#">Về Fox Design</a></li>
           <li><a href="#">Câu Chuyện Thương Hiệu</a></li>
@@ -590,111 +852,161 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 
     </div>
     <div class="ft-bot">
       <p class="ft-copy">© 2026 <span>Fox Design</span>. All rights reserved. Made with ❤️ in Vietnam.</p>
-      <p class="ft-copy"><a href="#" style="color:var(--muted);text-decoration:none;margin-right:16px">Chính Sách Bảo Mật</a><a href="#" style="color:var(--muted);text-decoration:none">Điều Khoản</a></p>
+      <div class="ft-leg">
+        <a href="#">Chính Sách Bảo Mật</a>
+        <a href="#">Điều Khoản</a>
+      </div>
     </div>
   </div>
 </footer>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- FLOATING CONTACTS -->
+<div id="float-contacts">
+  <div class="fc-item">
+    <span class="fc-label">Zalo: 0368 031 178</span>
+    <a href="https://zalo.me/0368031178" target="_blank" rel="noopener" class="fc-btn fc-zalo" title="Zalo">
+      <span class="fc-ring"></span><span class="fc-ring fc-ring-2"></span>
+      <span class="fc-ico fc-zalo-txt">Zalo</span>
+    </a>
+  </div>
+  <div class="fc-item">
+    <span class="fc-label">Hotline: 0368 031 178</span>
+    <a href="tel:0368031178" class="fc-btn fc-hotline" title="Hotline">
+      <span class="fc-ring"></span><span class="fc-ring fc-ring-2"></span>
+      <span class="fc-ico"><i class="fas fa-phone-alt"></i></span>
+    </a>
+  </div>
+  <div class="fc-item">
+    <span class="fc-label">Facebook</span>
+    <a href="https://facebook.com" target="_blank" rel="noopener" class="fc-btn fc-facebook" title="Facebook">
+      <span class="fc-ring"></span><span class="fc-ring fc-ring-2"></span>
+      <span class="fc-ico"><i class="fab fa-facebook-f"></i></span>
+    </a>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// AOS
-AOS.init({duration:680,easing:'ease-out-cubic',once:true,offset:55});
+/* ── NAV ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), { passive: true });
 
-// Navbar scroll
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
-
-// Hamburger
-const ham=document.getElementById('ham'),mob=document.getElementById('mob');
-ham.addEventListener('click',()=>{
+/* ── HAMBURGER ── */
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mob');
+ham.addEventListener('click', () => {
   ham.classList.toggle('on');
   mob.classList.toggle('on');
-  document.body.style.overflow=mob.classList.contains('on')?'hidden':'';
+  document.body.style.overflow = mob.classList.contains('on') ? 'hidden' : '';
 });
-document.querySelectorAll('.mob-lnk,.mob .btn').forEach(a=>a.addEventListener('click',()=>{
-  ham.classList.remove('on');mob.classList.remove('on');document.body.style.overflow='';
+document.querySelectorAll('.mob-lnk, .mob .btn').forEach(a => a.addEventListener('click', () => {
+  ham.classList.remove('on');
+  mob.classList.remove('on');
+  document.body.style.overflow = '';
 }));
 
-// Counter animation
-function animCount(el,target,suf,dur=1800){
-  const s=performance.now();
-  const run=t=>{
-    const p=Math.min((t-s)/dur,1);
-    const e=1-Math.pow(1-p,3);
-    el.textContent=Math.round(e*target).toLocaleString()+suf;
-    if(p<1)requestAnimationFrame(run);
-  };
-  requestAnimationFrame(run);
-}
-
-// Observe stats bar
-const io1=new IntersectionObserver(en=>{
-  if(en[0].isIntersecting){
-    document.querySelectorAll('.stat-n[data-count]').forEach(el=>animCount(el,+el.dataset.count,el.dataset.suf||''));
-    io1.disconnect();
-  }
-},{threshold:.3});
-const sb=document.querySelector('.stats-bar');
-if(sb)io1.observe(sb);
-
-// Observe counters section
-const io2=new IntersectionObserver(en=>{
-  if(en[0].isIntersecting){
-    document.querySelectorAll('.cnt-n[data-target]').forEach(el=>animCount(el,+el.dataset.target,el.dataset.suf||''));
-    io2.disconnect();
-  }
-},{threshold:.3});
-const cr=document.querySelector('.cnt-row');
-if(cr)io2.observe(cr);
-
-// Swiper
-new Swiper('.swiper-t',{
-  slidesPerView:1,spaceBetween:22,loop:true,
-  autoplay:{delay:4200,disableOnInteraction:false,pauseOnMouseEnter:true},
-  pagination:{el:'.swiper-pagination',clickable:true},
-  breakpoints:{640:{slidesPerView:2},1024:{slidesPerView:3}}
-});
-
-// Form
-function doSubmit(){
-  const n=document.getElementById('fn').value.trim();
-  const p=document.getElementById('fp').value.trim();
-  if(!n||!p){
-    [document.getElementById('fn'),document.getElementById('fp')].forEach(i=>{
-      if(!i.value.trim()){i.style.borderColor='#ff4d4d';i.style.animation='shake .4s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor=''},500)}
-    });
-    return;
-  }
-  const btn=document.querySelector('.f-sub');
-  btn.innerHTML='<i class="fas fa-circle-notch fa-spin"></i>&nbsp; Đang chuyển hướng...';btn.disabled=true;
-  setTimeout(()=>{
-    window.open('https://www.facebook.com/Kirigamilightbox.foxdesign','_blank');
-    btn.innerHTML='<i class="fas fa-paper-plane"></i>&nbsp; Gửi Yêu Cầu Ngay';btn.disabled=false;
-  },800);
-}
-
-// Ripple on gold buttons
-document.querySelectorAll('.btn-gold').forEach(b=>{
-  b.addEventListener('click',function(e){
-    const r=this.getBoundingClientRect();
-    const s=document.createElement('span');
-    s.style.cssText=`position:absolute;border-radius:50%;background:rgba(255,255,255,.25);width:10px;height:10px;transform:scale(0);left:${e.clientX-r.left-5}px;top:${e.clientY-r.top-5}px;animation:rpl .55s ease-out;pointer-events:none`;
-    this.appendChild(s);setTimeout(()=>s.remove(),600);
+/* ── SCROLL REVEAL ── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); revObs.unobserve(e.target); }
   });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+document.querySelectorAll('[data-r]').forEach(el => revObs.observe(el));
+
+/* ── PARALLAX ── */
+const parallaxEls = document.querySelectorAll('[data-parallax]');
+function runParallax() {
+  parallaxEls.forEach(el => {
+    const parent = el.closest('.ed-img');
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    const progress = (window.innerHeight / 2 - (rect.top + rect.height / 2)) / (window.innerHeight + rect.height);
+    el.style.transform = 'translateY(' + (progress * 70) + 'px)';
+  });
+}
+window.addEventListener('scroll', runParallax, { passive: true });
+runParallax();
+
+/* ── 3D CARD TILT ── */
+document.querySelectorAll('.prod-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    card.style.transform = 'perspective(900px) rotateY(' + (x * 9) + 'deg) rotateX(' + (-y * 5.5) + 'deg) translateY(-8px) scale(1.01)';
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+/* ── COUNTER ── */
+function animCount(el, target, suf, dur) {
+  dur = dur || 2000;
+  const t0 = performance.now();
+  const tick = now => {
+    const p = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 4);
+    el.textContent = Math.round(ease * target).toLocaleString() + suf;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const statsObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    document.querySelectorAll('.stat-n[data-count]').forEach(el =>
+      animCount(el, +el.dataset.count, el.dataset.suf || ''));
+    statsObs.disconnect();
+  }
+}, { threshold: .4 });
+const statsEl = document.querySelector('.stats');
+if (statsEl) statsObs.observe(statsEl);
+
+const cntObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    document.querySelectorAll('.cnt-n[data-target]').forEach(el =>
+      animCount(el, +el.dataset.target, el.dataset.suf || ''));
+    cntObs.disconnect();
+  }
+}, { threshold: .3 });
+const cntEl = document.querySelector('.cnt-row');
+if (cntEl) cntObs.observe(cntEl);
+
+/* ── SWIPER ── */
+new Swiper('.swiper-t', {
+  slidesPerView: 1,
+  spaceBetween: 24,
+  loop: true,
+  autoplay: { delay: 4600, disableOnInteraction: false, pauseOnMouseEnter: true },
+  pagination: { el: '.swiper-pagination', clickable: true },
+  breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+});
+
+/* ── HERO PARTICLES ── */
+(function(){
+  const hero = document.getElementById('hero');
+  for(let i=0;i<22;i++){
+    const d=document.createElement('div');
+    d.className='h-p-dot';
+    const sz=Math.random()<.25?3:Math.random()<.5?2:1.5;
+    d.style.cssText=[
+      'left:'+(Math.random()*100)+'%',
+      'bottom:'+(Math.random()*18)+'%',
+      '--dur:'+(7+Math.random()*9)+'s',
+      '--del:'+(Math.random()*12)+'s',
+      '--dx:'+((Math.random()-.5)*70)+'px',
+      'width:'+sz+'px','height:'+sz+'px',
+      'opacity:0'
+    ].join(';');
+    hero.appendChild(d);
+  }
+})();
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
 });
 </script>
-<style>
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-@keyframes rpl{to{transform:scale(32);opacity:0}}
-</style>
 </body>
 </html>
