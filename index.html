@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Fox Design — Nghệ thuật ánh sáng kirigami cao cấp, thủ công tinh tế. Thiết kế sang trọng, quà tặng độc đáo.">
+<title>Fox Design | Nghệ Thuật Ánh Sáng Kirigami</title>
+<link rel="icon" href="images/logo.jpg" type="image/jpeg">
+<link rel="shortcut icon" href="images/logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0F;--bg2:#0F0F18;--card:#131320;
+  --gold:#FFD700;--gold-d:#B8960C;--gold-l:#FFE855;
+  --silver:#DCDCDC;--green:#328064;
+  --txt:#F0F0F0;--muted:#888899;
+  --border:#1E1E2E;--border-g:rgba(255,215,0,.25);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:3px}
+::selection{background:rgba(255,215,0,.2);color:var(--gold)}
+
+/* ── UTILS ── */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.lbl{font-size:.72rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
+.sec-title{font-size:clamp(1.9rem,4vw,3rem);font-weight:700;line-height:1.15;margin-bottom:18px}
+.sec-desc{font-size:1rem;color:var(--muted);max-width:560px;line-height:1.8}
+.gold{background:linear-gradient(135deg,#FFD700,#FFE855,#B8960C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:600;border:none;border-radius:50px;cursor:pointer;text-decoration:none;transition:all .3s ease;min-height:52px;position:relative;overflow:hidden}
+.btn-gold{padding:15px 36px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#0A0A0F}
+.btn-gold::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.28);border-radius:50%;transform:translate(-50%,-50%);transition:width .55s,height .55s}
+.btn-gold:hover::before{width:320px;height:320px}
+.btn-gold:hover{box-shadow:0 0 32px rgba(255,215,0,.45),0 8px 24px rgba(255,215,0,.25);transform:translateY(-2px)}
+.btn-out{padding:13px 32px;background:transparent;color:var(--gold);border:1px solid var(--border-g)}
+.btn-out:hover{background:rgba(255,215,0,.07);border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,.18)}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 0;transition:all .4s ease}
+.nav.scrolled{background:rgba(10,10,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-g);padding:12px 0}
+.nav .container{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-img{width:44px;height:44px;object-fit:contain;border-radius:8px;background:#fff;padding:3px;flex-shrink:0}
+.logo-text span:first-child{display:block;font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.logo-text span:last-child{display:block;font-size:.6rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:.86rem;font-weight:500;color:var(--silver);text-decoration:none;letter-spacing:.3px;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.ham span{display:block;width:24px;height:2px;background:var(--silver);border-radius:2px;transition:all .3s}
+.ham.on span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--gold)}
+.ham.on span:nth-child(2){opacity:0}
+.ham.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--gold)}
+.mob{display:none;position:fixed;inset:0;background:rgba(10,10,15,.98);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;transition:opacity .3s}
+.mob.on{display:flex;opacity:1}
+.mob a{font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:600;color:var(--silver);text-decoration:none;transition:color .3s}
+.mob a:hover{color:var(--gold)}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('images/background-header.jpg') center center/cover no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,15,.62) 0%,rgba(10,10,15,.25) 45%,rgba(10,10,15,.85) 100%)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,215,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 75%)}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:float linear infinite}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,215,0,.14),transparent);top:-120px;right:-100px;animation-duration:22s}
+.orb2{width:420px;height:420px;background:radial-gradient(circle,rgba(50,128,100,.11),transparent);bottom:-60px;left:-80px;animation-duration:28s;animation-direction:reverse}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,215,0,.07),transparent);top:35%;left:8%;animation-duration:19s}
+@keyframes float{0%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-28px) scale(1.04)}66%{transform:translate(-18px,18px) scale(.97)}100%{transform:translate(0,0) scale(1)}}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:130px 24px 80px;max-width:860px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 20px;background:rgba(255,215,0,.07);border:1px solid var(--border-g);border-radius:50px;font-size:.72rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;animation:fiu .8s ease .2s both}
+.dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+.hero-h{font-size:clamp(3rem,9vw,7rem);font-weight:800;line-height:1.02;letter-spacing:-2px;margin-bottom:10px;animation:fiu .9s ease .4s both}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.5rem);font-weight:300;color:var(--silver);letter-spacing:8px;text-transform:uppercase;margin-bottom:24px;animation:fiu .9s ease .5s both}
+.hero-p{font-size:1.05rem;color:var(--muted);max-width:520px;margin:0 auto 44px;line-height:1.85;animation:fiu .9s ease .6s both}
+.hero-cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;animation:fiu .9s ease .7s both}
+.scroll-i{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fid 1s ease 1.5s both}
+.scroll-i span{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.mouse{width:24px;height:38px;border:1.5px solid rgba(255,215,0,.3);border-radius:12px;display:flex;justify-content:center;padding-top:6px}
+.wheel{width:3px;height:8px;background:var(--gold);border-radius:2px;animation:wheel 2s ease infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(15px);opacity:0}}
+@keyframes fiu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fid{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ── STATS ── */
+.stats-bar{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:26px 20px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:5px}
+.stat-l{font-size:.78rem;color:var(--muted);letter-spacing:.5px}
+
+/* ── SECTION ── */
+section{padding:96px 0}
+.sec-hd{margin-bottom:60px}
+.sec-hd.c{text-align:center}
+.sec-hd.c .sec-desc{margin:0 auto}
+
+/* ── PRODUCTS ── */
+#products{background:var(--bg)}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);cursor:pointer}
+.prod-card:hover{border-color:var(--border-g);transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 40px rgba(255,215,0,.06)}
+.prod-img{width:100%;aspect-ratio:4/3;position:relative;overflow:hidden}
+.prod-img img{width:100%;height:100%;object-fit:cover;display:block;animation:pfloat 7s ease-in-out infinite;will-change:transform;transform-origin:center center}
+.prod-card:nth-child(2) .prod-img img{animation-delay:-2s}
+.prod-card:nth-child(3) .prod-img img{animation-delay:-3.5s}
+.prod-card:nth-child(4) .prod-img img{animation-delay:-1.2s}
+.prod-card:nth-child(5) .prod-img img{animation-delay:-4.5s}
+.prod-card:nth-child(6) .prod-img img{animation-delay:-6s}
+@keyframes pfloat{
+  0%,100%{transform:scale(1.13) translateY(0px) rotate(0deg)}
+  20%{transform:scale(1.15) translateY(-9px) rotate(.4deg)}
+  50%{transform:scale(1.16) translateY(-15px) rotate(-.4deg)}
+  75%{transform:scale(1.14) translateY(-7px) rotate(.2deg)}
+}
+.prod-badge{position:absolute;top:12px;right:12px;padding:4px 11px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:20px;font-size:.68rem;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;z-index:2}
+.prod-info{padding:22px}
+.prod-cat{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;font-weight:500}
+.prod-name{font-size:1.1rem;font-weight:600;margin-bottom:9px;color:var(--txt)}
+.prod-desc{font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:18px}
+.prod-foot{display:flex;align-items:center;justify-content:space-between}
+.prod-price{font-family:'Poppins',sans-serif;font-size:1.25rem;font-weight:700;color:var(--gold)}
+.prod-price small{font-size:.72rem;font-weight:400;color:var(--muted);margin-left:3px}
+.prod-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,215,0,.08);border:1px solid var(--border-g);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:.85rem}
+.prod-btn:hover{background:var(--gold);color:#0A0A0F;box-shadow:0 0 20px rgba(255,215,0,.4)}
+
+/* ── WHY ── */
+#why{background:linear-gradient(180deg,var(--bg),var(--bg2));position:relative}
+#why::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-g),transparent)}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:60px}
+.why-card{padding:34px;background:var(--card);border:1px solid var(--border);border-radius:20px;transition:all .35s ease;position:relative;overflow:hidden}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .35s}
+.why-card:hover{border-color:var(--border-g);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.why-card:hover::before{opacity:1}
+.wi{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:22px}
+.wi-g{background:rgba(255,215,0,.1);color:var(--gold)}
+.wi-s{background:rgba(220,220,220,.08);color:var(--silver)}
+.wi-gr{background:rgba(50,128,100,.12);color:#4ecca3}
+.wi-b{background:rgba(100,149,237,.1);color:#6495ED}
+.why-t{font-size:1.15rem;font-weight:600;margin-bottom:11px}
+.why-d{font-size:.88rem;color:var(--muted);line-height:1.8}
+.cnt-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cnt-card{text-align:center;padding:30px 16px;background:rgba(255,215,0,.03);border:1px solid var(--border-g);border-radius:16px}
+.cnt-n{font-family:'Poppins',sans-serif;font-size:2.6rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:8px}
+.cnt-l{font-size:.78rem;color:var(--muted);letter-spacing:.5px}
+
+/* ── TESTIMONIALS ── */
+#testi{background:var(--bg2);position:relative}
+#testi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-g),transparent)}
+.swiper-t{padding:16px 8px 56px !important}
+.t-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;transition:border-color .3s}
+.t-card:hover{border-color:var(--border-g)}
+.stars{display:flex;gap:3px;margin-bottom:18px}
+.stars i{color:var(--gold);font-size:.85rem}
+.t-txt{font-size:.92rem;color:var(--silver);line-height:1.8;margin-bottom:26px;font-style:italic}
+.t-auth{display:flex;align-items:center;gap:13px}
+.av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:700;color:#0A0A0F;flex-shrink:0}
+.a-name{font-weight:600;font-size:.92rem;margin-bottom:2px}
+.a-role{font-size:.75rem;color:var(--muted)}
+.swiper-pagination-bullet{background:var(--border) !important;opacity:1 !important;width:8px !important;height:8px !important}
+.swiper-pagination-bullet-active{background:var(--gold) !important;width:24px !important;border-radius:4px !important}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg)}
+.ct-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.ct-feats{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:14px}
+.ct-feats li{display:flex;align-items:center;gap:13px;font-size:.88rem;color:var(--silver)}
+.fdot{width:7px;height:7px;background:var(--gold);border-radius:50%;flex-shrink:0;box-shadow:0 0 8px rgba(255,215,0,.5)}
+.socials{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.soc{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.88rem;text-decoration:none;transition:all .3s}
+.soc:hover{border-color:var(--border-g);color:var(--gold);background:rgba(255,215,0,.07);transform:translateY(-2px)}
+.ct-form{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:38px}
+.ft{font-size:1.3rem;font-weight:600;margin-bottom:6px}
+.fs{font-size:.85rem;color:var(--muted);margin-bottom:26px}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:.8rem;font-weight:500;color:var(--silver);margin-bottom:7px;letter-spacing:.3px}
+.fg input,.fg select,.fg textarea{width:100%;padding:13px 17px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;color:var(--txt);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,215,0,.08)}
+.fg input::placeholder{color:var(--muted)}
+.fg textarea{min-height:95px;resize:vertical}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.f-sub{width:100%;margin-top:6px;justify-content:center}
+.ok-msg{display:none;text-align:center;padding:18px;background:rgba(50,128,100,.08);border:1px solid rgba(50,128,100,.25);border-radius:12px;color:#4ecca3;font-size:.88rem;margin-top:16px}
+.ok-msg.on{display:block;animation:fiu .5s ease}
+
+/* ── FOOTER ── */
+footer{background:var(--card);border-top:1px solid var(--border);padding:56px 0 28px}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.ft-desc{font-size:.85rem;color:var(--muted);line-height:1.8;margin:14px 0 22px}
+.ft-col-t{font-family:'Poppins',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:11px}
+.ft-links a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .3s}
+.ft-links a:hover{color:var(--gold)}
+.ft-bot{border-top:1px solid var(--border);padding-top:26px;display:flex;align-items:center;justify-content:space-between}
+.ft-copy{font-size:.78rem;color:var(--muted)}
+.ft-copy span{color:var(--gold)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .prod-grid{grid-template-columns:repeat(2,1fr)}
+  .ft-top{grid-template-columns:1fr 1fr;gap:32px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .cnt-row{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  section{padding:68px 0}
+  .nav-links,.nav-cta{display:none}
+  .ham{display:flex}
+  .prod-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+  .why-grid{grid-template-columns:1fr}
+  .ct-wrap{grid-template-columns:1fr;gap:44px}
+  .ft-top{grid-template-columns:1fr;gap:28px}
+  .ft-bot{flex-direction:column;gap:14px;text-align:center}
+  .frow{grid-template-columns:1fr}
+  .hero-cta{flex-direction:column;align-items:center}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .ct-form{padding:26px 18px}
+  .why-card{padding:26px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#" class="logo">
+      <img src="images/logo.jpg" alt="Fox Design Logo" class="logo-img">
+      <div class="logo-text">
+        <span>Fox Design</span>
+        <span>Nghệ Thuật Ánh Sáng</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Sản Phẩm</a></li>
+      <li><a href="#why">Về Chúng Tôi</a></li>
+      <li><a href="#testi">Đánh Giá</a></li>
+      <li><a href="#contact">Liên Hệ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-gold" style="padding:12px 24px;font-size:.84rem;min-height:44px">Đặt Hàng Ngay</a>
+    </div>
+    <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob" id="mob">
+  <a href="#products" class="mob-lnk">Sản Phẩm</a>
+  <a href="#why" class="mob-lnk">Về Chúng Tôi</a>
+  <a href="#testi" class="mob-lnk">Đánh Giá</a>
+  <a href="#contact" class="mob-lnk">Liên Hệ</a>
+  <a href="#contact" class="btn btn-gold" style="margin-top:12px">Đặt Hàng Ngay</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="grid-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div class="badge"><span class="dot"></span>Fox Design — Bộ Sưu Tập Nghệ Nhân Cao Cấp 2026</div>
+    <h1 class="hero-h"><span class="gold">Fox</span><br>Design</h1>
+    <p class="hero-sub">Kirigami Lightbox — Nghệ Thuật Ánh Sáng</p>
+    <p class="hero-p">Hộp đèn kirigami thủ công — nơi nghệ thuật gấp giấy truyền thống gặp gỡ ánh sáng hiện đại. Mỗi tác phẩm là một hành trình thẩm mỹ độc đáo, sang trọng và tao nhã.</p>
+    <div class="hero-cta">
+      <a href="#products" class="btn btn-gold">Khám Phá Bộ Sưu Tập <i class="fas fa-arrow-right"></i></a>
+      <a href="#why" class="btn btn-out">Tìm Hiểu Thêm</a>
+    </div>
+  </div>
+  <div class="scroll-i">
+    <div class="mouse"><div class="wheel"></div></div>
+    <span>Cuộn Xuống</span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-n" data-count="5000" data-suf="+">0</div><div class="stat-l">Khách Hàng Hài Lòng</div></div>
+      <div class="stat"><div class="stat-n" data-count="50" data-suf="+">0</div><div class="stat-l">Mẫu Thiết Kế</div></div>
+      <div class="stat"><div class="stat-n" data-count="98" data-suf="%">0</div><div class="stat-l">Đánh Giá 5 Sao</div></div>
+      <div class="stat"><div class="stat-n" data-count="3" data-suf=" Năm">0</div><div class="stat-l">Kinh Nghiệm</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="sec-hd" data-aos="fade-up">
+      <span class="lbl">Bộ Sưu Tập</span>
+      <h2 class="sec-title">Sản Phẩm <span class="gold">Nổi Bật</span></h2>
+      <p class="sec-desc">Mỗi chiếc hộp đèn kirigami là một tác phẩm nghệ thuật thủ công tinh tế, được chế tác tỉ mỉ bởi các nghệ nhân.</p>
+    </div>
+    <div class="prod-grid">
+
+      <!-- P1 -->
+      <div class="prod-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="prod-img">
+          <img src="images/sp-1.jpg" alt="Kirigami Lightbox — Sản phẩm 1">
+          <div class="prod-badge">Bestseller</div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-cat">Thiên Nhiên</div>
+          <h3 class="prod-name">Rừng Trăng Vàng</h3>
+          <p class="prod-desc">Cảnh rừng núi huyền bí dưới ánh trăng vàng, tạo không gian thơ mộng và yên bình tuyệt vời.</p>
+          <div class="prod-foot">
+            <div class="prod-price">490.000đ<small>/ hộp</small></div>
+            <button class="prod-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="prod-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="prod-img">
+          <img src="images/sp-2.jpg" alt="Kirigami Lightbox — Sản phẩm 2">
+          <div class="prod-badge">Mới</div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-cat">Lãng Mạn</div>
+          <h3 class="prod-name">Hoa Anh Đào Xanh</h3>
+          <p class="prod-desc">Vẻ đẹp mùa xuân trong tông xanh ngọc huyền diệu, mang cảm giác nhẹ nhàng và thư thái.</p>
+          <div class="prod-foot">
+            <div class="prod-price">520.000đ<small>/ hộp</small></div>
+            <button class="prod-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="prod-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="prod-img">
+          <img src="images/sp-3.jpg" alt="Kirigami Lightbox — Sản phẩm 3">
+        </div>
+        <div class="prod-info">
+          <div class="prod-cat">Đô Thị</div>
+          <h3 class="prod-name">Thành Phố Vàng</h3>
+          <p class="prod-desc">Đường chân trời thành phố đêm lung linh trong sắc vàng ấm áp — vẻ đẹp đô thị hiện đại.</p>
+          <div class="prod-foot">
+            <div class="prod-price">580.000đ<small>/ hộp</small></div>
+            <button class="prod-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="prod-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="prod-img">
+          <img src="images/sp-4.jpg" alt="Kirigami Lightbox — Sản phẩm 4">
+          <div class="prod-badge">Giới Hạn</div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-cat">Biển Cả</div>
+          <h3 class="prod-name">Hải Đăng Bạc</h3>
+          <p class="prod-desc">Ngọn hải đăng cô độc giữa biển đêm mênh mông — biểu tượng của hy vọng và khám phá.</p>
+          <div class="prod-foot">
+            <div class="prod-price">650.000đ<small>/ hộp</small></div>
+            <button class="prod-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="prod-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="prod-img">
+          <img src="images/sp-5.jpg" alt="Kirigami Lightbox — Sản phẩm 5">
+        </div>
+        <div class="prod-info">
+          <div class="prod-cat">Á Đông</div>
+          <h3 class="prod-name">Tháp Đèn Đỏ</h3>
+          <p class="prod-desc">Vẻ đẹp kiến trúc Á Đông huyền bí dưới ánh đèn lồng đỏ rực — tinh tế và đầy chiều sâu.</p>
+          <div class="prod-foot">
+            <div class="prod-price">560.000đ<small>/ hộp</small></div>
+            <button class="prod-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="prod-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="prod-img">
+          <img src="images/sp-6.jpg" alt="Kirigami Lightbox — Sản phẩm 6">
+          <div class="prod-badge">Cao Cấp</div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-cat">Mùa Đông</div>
+          <h3 class="prod-name">Cực Quang Bắc</h3>
+          <p class="prod-desc">Cảnh đêm cực quang huyền ảo trên tuyết trắng — kết hợp hoàn hảo giữa lạnh lẽo và ấm áp.</p>
+          <div class="prod-foot">
+            <div class="prod-price">720.000đ<small>/ hộp</small></div>
+            <button class="prod-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:44px" data-aos="fade-up">
+      <a href="#contact" class="btn btn-out">Xem Toàn Bộ Bộ Sưu Tập &nbsp;<i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <div class="sec-hd c" data-aos="fade-up">
+      <span class="lbl">Tại Sao Chọn Chúng Tôi</span>
+      <h2 class="sec-title">Fox Design — <span class="gold">Khác Biệt</span></h2>
+      <p class="sec-desc">Chúng tôi không chỉ bán sản phẩm — chúng tôi trao đến bạn một trải nghiệm thẩm mỹ độc đáo và cảm xúc chân thật.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-aos="fade-right">
+        <div class="wi wi-g"><i class="fas fa-gem"></i></div>
+        <h3 class="why-t">Thiết Kế Xuất Sắc</h3>
+        <p class="why-d">Mỗi thiết kế được nghiên cứu kỹ về tỉ lệ, ánh sáng và bóng tối. Chúng tôi ứng dụng nguyên lý kirigami truyền thống Nhật Bản kết hợp cùng cảm quan thẩm mỹ hiện đại để tạo nên những tác phẩm độc bản.</p>
+      </div>
+      <div class="why-card" data-aos="fade-left">
+        <div class="wi wi-s"><i class="fas fa-star"></i></div>
+        <h3 class="why-t">Chất Lượng Cao Cấp</h3>
+        <p class="why-d">Sử dụng giấy cao cấp đặc biệt, đèn LED dịu nhẹ bảo vệ mắt, khung gỗ tự nhiên bền đẹp. Mỗi chi tiết được kiểm tra nghiêm ngặt trước khi đến tay khách hàng, đảm bảo sự hoàn hảo tuyệt đối.</p>
+      </div>
+      <div class="why-card" data-aos="fade-right" data-aos-delay="80">
+        <div class="wi wi-gr"><i class="fas fa-leaf"></i></div>
+        <h3 class="why-t">Thân Thiện Môi Trường</h3>
+        <p class="why-d">Cam kết sử dụng vật liệu thân thiện môi trường. Giấy tái chế FSC, đèn LED tiết kiệm năng lượng, đóng gói từ vật liệu có thể tái sử dụng. Đẹp và có trách nhiệm với tương lai.</p>
+      </div>
+      <div class="why-card" data-aos="fade-left" data-aos-delay="80">
+        <div class="wi wi-b"><i class="fas fa-lightbulb"></i></div>
+        <h3 class="why-t">Sáng Tạo Không Ngừng</h3>
+        <p class="why-d">Không ngừng sáng tạo và phát triển mẫu mới. Hệ thống điều chỉnh độ sáng thông minh, tính năng hẹn giờ tự động và các hiệu ứng ánh sáng đặc biệt độc quyền chỉ có tại Fox Design.</p>
+      </div>
+    </div>
+    <div class="cnt-row" data-aos="fade-up">
+      <div class="cnt-card"><div class="cnt-n" data-target="5000" data-suf="+">0</div><div class="cnt-l">Khách Hàng Hài Lòng</div></div>
+      <div class="cnt-card"><div class="cnt-n" data-target="50" data-suf="+">0</div><div class="cnt-l">Mẫu Thiết Kế Độc Quyền</div></div>
+      <div class="cnt-card"><div class="cnt-n" data-target="98" data-suf="%">0</div><div class="cnt-l">Đánh Giá 5 Sao</div></div>
+      <div class="cnt-card"><div class="cnt-n" data-target="30" data-suf="+">0</div><div class="cnt-l">Giải Thưởng Nhận Được</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testi">
+  <div class="container">
+    <div class="sec-hd c" data-aos="fade-up">
+      <span class="lbl">Khách Hàng Nói Gì</span>
+      <h2 class="sec-title">Đánh Giá <span class="gold">Thực Tế</span></h2>
+      <p class="sec-desc">Hơn 5.000 khách hàng đã tin tưởng và yêu thích Fox Design.</p>
+    </div>
+    <div class="swiper swiper-t" data-aos="fade-up">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><div class="t-card">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-txt">"Tôi mua chiếc Rừng Trăng Vàng để trang trí phòng làm việc và nó thực sự thay đổi không gian hoàn toàn. Ánh sáng ấm áp, thiết kế tinh tế — mỗi tối nhìn vào là thấy bình yên đến lạ."</p>
+          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#FFD700,#B8960C)">M</div><div><div class="a-name">Minh Anh Nguyễn</div><div class="a-role">Creative Director, Hà Nội</div></div></div>
+        </div></div>
+        <div class="swiper-slide"><div class="t-card">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-txt">"Mua làm quà sinh nhật cho mẹ, mẹ thích lắm! Hộp đóng gói đẹp, sản phẩm chất lượng vượt mong đợi. Đèn sáng dịu, không gắt mắt. Fox Design thực sự là thương hiệu đáng tin cậy."</p>
+          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#328064,#1a4a3a)">T</div><div><div class="a-name">Thanh Hà Trần</div><div class="a-role">Kiến Trúc Sư, TP.HCM</div></div></div>
+        </div></div>
+        <div class="swiper-slide"><div class="t-card">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-txt">"Đã order 3 lần rồi, lần nào cũng ưng ý. Cực Quang Bắc là bộ đẹp nhất tôi từng thấy. Bạn bè đến chơi ai cũng hỏi mua ở đâu. Chắc chắn sẽ tiếp tục ủng hộ Fox Design!"</p>
+          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#6495ED,#3060C0)">K</div><div><div class="a-name">Khôi Phạm</div><div class="a-role">Nhiếp Ảnh Gia, Đà Nẵng</div></div></div>
+        </div></div>
+        <div class="swiper-slide"><div class="t-card">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="t-txt">"Tôi là người yêu nghệ thuật và Fox Design thực sự là món đồ nghệ thuật chứ không chỉ là đèn trang trí. Hải Đăng Bạc có chiều sâu và cảm xúc đặc biệt. Tuyệt vời!"</p>
+          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#DCDCDC,#999)">L</div><div><div class="a-name">Linh Chi Vũ</div><div class="a-role">Nhà Thiết Kế Nội Thất</div></div></div>
+        </div></div>
+        <div class="swiper-slide"><div class="t-card">
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <p class="t-txt">"Giao hàng nhanh, đóng gói cực kỳ cẩn thận. Sản phẩm y như hình, thậm chí còn đẹp hơn khi bật đèn lên. Team Fox Design hỗ trợ nhiệt tình, rất vui khi mua hàng ở đây."</p>
+          <div class="t-auth"><div class="av" style="background:linear-gradient(135deg,#FFD700,#FF8C00)">B</div><div><div class="a-name">Bảo Châu Lê</div><div class="a-role">Blogger, Hồ Chí Minh</div></div></div>
+        </div></div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="ct-wrap">
+      <div data-aos="fade-right">
+        <span class="lbl">Liên Hệ</span>
+        <h2 class="sec-title">Sẵn Sàng Đặt <span class="gold">Hàng?</span></h2>
+        <p style="color:var(--muted);font-size:.98rem;line-height:1.85">Liên hệ với chúng tôi ngay hôm nay để được tư vấn miễn phí và nhận ưu đãi đặc biệt dành riêng cho bạn.</p>
+        <ul class="ct-feats">
+          <li><span class="fdot"></span>Tư vấn thiết kế miễn phí theo yêu cầu</li>
+          <li><span class="fdot"></span>Giao hàng toàn quốc trong 3–5 ngày làm việc</li>
+          <li><span class="fdot"></span>Bảo hành 12 tháng, đổi trả trong 7 ngày</li>
+          <li><span class="fdot"></span>Cá nhân hóa thông điệp theo yêu cầu riêng</li>
+          <li><span class="fdot"></span>Hỗ trợ khách hàng 24/7 qua Zalo & Facebook</li>
+        </ul>
+        <div class="socials">
+          <a href="#" class="soc" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="soc" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="soc" title="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="soc" title="Shopee"><i class="fas fa-shopping-bag"></i></a>
+          <a href="#" class="soc" title="Zalo" style="font-size:.72rem;font-weight:700">Zalo</a>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="ct-form" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;min-height:320px">
+          <div>
+            <div style="width:72px;height:72px;border-radius:18px;background:rgba(255,215,0,.1);border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px"><i class="fab fa-facebook-f" style="color:var(--gold)"></i></div>
+            <h3 style="font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:10px">Nhắn Tin Qua Facebook</h3>
+            <p style="font-size:.88rem;color:var(--muted);line-height:1.8;max-width:300px">Chúng tôi tư vấn trực tiếp qua Facebook — phản hồi nhanh, hỗ trợ tận tình.</p>
+          </div>
+          <a href="https://www.facebook.com/Kirigamilightbox.foxdesign" target="_blank" rel="noopener" class="btn btn-gold" style="padding:16px 40px;font-size:1rem">
+            <i class="fab fa-facebook-f"></i>&nbsp; Liên Hệ Ngay
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ft-top">
+      <div>
+        <a href="#" class="logo">
+          <img src="images/logo.jpg" alt="Fox Design Logo" class="logo-img">
+          <div class="logo-text"><span>Fox Design</span><span>Nghệ Thuật Ánh Sáng</span></div>
+        </a>
+        <p class="ft-desc">Thương hiệu hộp đèn kirigami thủ công cao cấp hàng đầu Việt Nam. Mỗi sản phẩm là một tác phẩm nghệ thuật độc đáo, được chế tác với tâm huyết và đam mê thuần túy.</p>
+        <div class="socials">
+          <a href="#" class="soc"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="soc"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="soc"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-col-t">Sản Phẩm</div>
+        <ul class="ft-links">
+          <li><a href="#">Bộ Sưu Tập Thiên Nhiên</a></li>
+          <li><a href="#">Bộ Sưu Tập Lãng Mạn</a></li>
+          <li><a href="#">Bộ Sưu Tập Á Đông</a></li>
+          <li><a href="#">Bộ Sưu Tập Đô Thị</a></li>
+          <li><a href="#">Đặt Hàng Cá Nhân Hóa</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Hỗ Trợ</div>
+        <ul class="ft-links">
+          <li><a href="#">Hướng Dẫn Sử Dụng</a></li>
+          <li><a href="#">Chính Sách Đổi Trả</a></li>
+          <li><a href="#">Vận Chuyển & Giao Hàng</a></li>
+          <li><a href="#">Câu Hỏi Thường Gặp</a></li>
+          <li><a href="#">Liên Hệ Chúng Tôi</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Thông Tin</div>
+        <ul class="ft-links">
+          <li><a href="#">Về Fox Design</a></li>
+          <li><a href="#">Câu Chuyện Thương Hiệu</a></li>
+          <li><a href="#">Blog Nghệ Thuật</a></li>
+          <li><a href="#">Đại Lý & Đối Tác</a></li>
+          <li><a href="#">Tuyển Dụng</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p class="ft-copy">© 2026 <span>Fox Design</span>. All rights reserved. Made with ❤️ in Vietnam.</p>
+      <p class="ft-copy"><a href="#" style="color:var(--muted);text-decoration:none;margin-right:16px">Chính Sách Bảo Mật</a><a href="#" style="color:var(--muted);text-decoration:none">Điều Khoản</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+// AOS
+AOS.init({duration:680,easing:'ease-out-cubic',once:true,offset:55});
+
+// Navbar scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+
+// Hamburger
+const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('on');
+  mob.classList.toggle('on');
+  document.body.style.overflow=mob.classList.contains('on')?'hidden':'';
+});
+document.querySelectorAll('.mob-lnk,.mob .btn').forEach(a=>a.addEventListener('click',()=>{
+  ham.classList.remove('on');mob.classList.remove('on');document.body.style.overflow='';
+}));
+
+// Counter animation
+function animCount(el,target,suf,dur=1800){
+  const s=performance.now();
+  const run=t=>{
+    const p=Math.min((t-s)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(e*target).toLocaleString()+suf;
+    if(p<1)requestAnimationFrame(run);
+  };
+  requestAnimationFrame(run);
+}
+
+// Observe stats bar
+const io1=new IntersectionObserver(en=>{
+  if(en[0].isIntersecting){
+    document.querySelectorAll('.stat-n[data-count]').forEach(el=>animCount(el,+el.dataset.count,el.dataset.suf||''));
+    io1.disconnect();
+  }
+},{threshold:.3});
+const sb=document.querySelector('.stats-bar');
+if(sb)io1.observe(sb);
+
+// Observe counters section
+const io2=new IntersectionObserver(en=>{
+  if(en[0].isIntersecting){
+    document.querySelectorAll('.cnt-n[data-target]').forEach(el=>animCount(el,+el.dataset.target,el.dataset.suf||''));
+    io2.disconnect();
+  }
+},{threshold:.3});
+const cr=document.querySelector('.cnt-row');
+if(cr)io2.observe(cr);
+
+// Swiper
+new Swiper('.swiper-t',{
+  slidesPerView:1,spaceBetween:22,loop:true,
+  autoplay:{delay:4200,disableOnInteraction:false,pauseOnMouseEnter:true},
+  pagination:{el:'.swiper-pagination',clickable:true},
+  breakpoints:{640:{slidesPerView:2},1024:{slidesPerView:3}}
+});
+
+// Form
+function doSubmit(){
+  const n=document.getElementById('fn').value.trim();
+  const p=document.getElementById('fp').value.trim();
+  if(!n||!p){
+    [document.getElementById('fn'),document.getElementById('fp')].forEach(i=>{
+      if(!i.value.trim()){i.style.borderColor='#ff4d4d';i.style.animation='shake .4s ease';setTimeout(()=>{i.style.animation='';i.style.borderColor=''},500)}
+    });
+    return;
+  }
+  const btn=document.querySelector('.f-sub');
+  btn.innerHTML='<i class="fas fa-circle-notch fa-spin"></i>&nbsp; Đang chuyển hướng...';btn.disabled=true;
+  setTimeout(()=>{
+    window.open('https://www.facebook.com/Kirigamilightbox.foxdesign','_blank');
+    btn.innerHTML='<i class="fas fa-paper-plane"></i>&nbsp; Gửi Yêu Cầu Ngay';btn.disabled=false;
+  },800);
+}
+
+// Ripple on gold buttons
+document.querySelectorAll('.btn-gold').forEach(b=>{
+  b.addEventListener('click',function(e){
+    const r=this.getBoundingClientRect();
+    const s=document.createElement('span');
+    s.style.cssText=`position:absolute;border-radius:50%;background:rgba(255,255,255,.25);width:10px;height:10px;transform:scale(0);left:${e.clientX-r.left-5}px;top:${e.clientY-r.top-5}px;animation:rpl .55s ease-out;pointer-events:none`;
+    this.appendChild(s);setTimeout(()=>s.remove(),600);
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
+});
+</script>
+<style>
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes rpl{to{transform:scale(32);opacity:0}}
+</style>
+</body>
+</html>
